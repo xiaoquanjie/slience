@@ -18,7 +18,7 @@ int ApplicationBase::Init(int argc, char** argv) {
 		if (0 != ret)
 			break;
 
-		SetLogFileName(_log_file, true);
+		SetLogFileName(_log_file, false);
 		SetLogLevel(_log_level);
 
 	} while (false);

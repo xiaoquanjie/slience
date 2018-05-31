@@ -23,7 +23,6 @@ public:
 
 	static std::string remove_from_end(const std::string& src, const std::string& tar) {
 		size_t pos = src.rfind(tar);
-		printf("%ld\n", pos);
 		if (pos != std::string::npos) {
 			return src.substr(0, pos);
 		}
