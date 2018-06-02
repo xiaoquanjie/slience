@@ -5,3 +5,7 @@
 slience.opensdf
 slience.sdf
 slience.v12.suo
+blade-bin
+.SConstruct.lock
+.sconsign.dblite
+.vs
