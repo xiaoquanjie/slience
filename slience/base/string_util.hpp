@@ -9,14 +9,12 @@ M_BASE_NAMESPACE_BEGIN
 class StringUtil {
 public:
 	static std::string basename(const std::string& path) {
-#ifdef M_PLATFORM_WIN
-		char delimiter = '\\';
-#else
-		char delimiter = '/';
-#endif
-		size_t pos = path.find_last_of(delimiter);
-		if (pos != std::string::npos) {
-			return path.substr(pos + 1, path.size() - pos);
+		char delimiters[] = { '\\', '/' };
+		for (unsigned int idx = 0; idx < sizeof(delimiters) / sizeof(char); ++idx) {
+			size_t pos = path.find_last_of(delimiters[idx]);
+			if (pos != std::string::npos) {
+				return path.substr(pos + 1, path.size() - pos);
+			}
 		}
 		return path;
 	}

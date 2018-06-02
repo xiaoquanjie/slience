@@ -3,9 +3,19 @@
 #include "slience/base/logger.hpp"
 #include "commonlib/svr_base/getopt.hpp"
 
+#ifndef M_PLATFORM_WIN
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+#include <sys/param.h>
+#endif
+
 ApplicationBase::ApplicationBase() {
 	_log_level = base::logger::LOG_LEVEL_TRACE;
 	_log_withpid = 0;
+	_daemon = 0;
 }
 
 ApplicationBase::~ApplicationBase() {
@@ -15,10 +25,17 @@ ApplicationBase::~ApplicationBase() {
 int ApplicationBase::Init(int argc, char** argv) {
 	int ret = 0;
 	do {
+		// set core file unlimit
+		CoreFileUnlimit();
+
 		ret = ParseOpt(argc, argv);
 		if (0 != ret)
 			break;
 
+		// set daemon
+		Daemon();
+
+		// set log
 		SetLogFileName(_log_file, (bool)_log_withpid);
 		SetLogLevel(_log_level);
 
@@ -64,6 +81,20 @@ int ApplicationBase::Run() {
 	return 0;
 }
 
+void ApplicationBase::CoreFileUnlimit() {
+#ifndef M_PLATFORM_WIN
+	struct rlimit rlim;
+	struct rlimit rlim_new;
+	if (getrlimit(RLIMIT_CORE, &rlim) == 0) {
+		rlim_new.rlim_cur = rlim_new.rlim_max = RLIM_INFINITY;
+		if (setrlimit(RLIMIT_CORE, &rlim_new) != 0) {
+			rlim_new.rlim_cur = rlim_new.rlim_max = rlim.rlim_max;
+			setrlimit(RLIMIT_CORE, &rlim_new);
+		}
+	}
+#endif
+}
+
 int ApplicationBase::ParseOpt(int argc, char** argv) {
 	_appname = base::StringUtil::basename(argv[0]);
 	_appname = base::StringUtil::remove_from_end(_appname, ".exe");
@@ -105,6 +136,7 @@ int ApplicationBase::ParseOpt(int argc, char** argv) {
 			}
 			break;
 		case 'D':
+			_daemon = 1;
 			break;
 		case 'H':
 		case 'h':
@@ -131,4 +163,38 @@ void ApplicationBase::Usage()const {
 	printf("\noptional arguments:\n");
 	printf("--log_file		the log file path\n");
 	printf("--log_level		the log level\n");
+}
+
+void ApplicationBase::Daemon() {
+	if (_daemon != 1)
+		return;
+
+#ifndef M_PLATFORM_WIN
+	pid_t pid = fork();
+	if (pid != 0) 
+		exit(0);
+
+	// Õ—¿Î÷’∂À
+	setsid();
+
+	signal(SIGINT, SIG_IGN);
+	signal(SIGHUP, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGPIPE, SIG_IGN);
+	signal(SIGTTOU, SIG_IGN);
+	signal(SIGTTIN, SIG_IGN);
+	signal(SIGCHLD, SIG_IGN);
+	signal(SIGTERM, SIG_IGN);
+	signal(SIGHUP, SIG_IGN);
+
+	pid = fork();
+
+	if (pid != 0)
+		exit(0);
+
+	for (int i = 0; i < NOFILE; i++)
+		close(i);
+
+	umask(0);
+#endif
 }

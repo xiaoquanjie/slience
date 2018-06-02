@@ -31,9 +31,13 @@ protected:
 	virtual int OnExit();
 
 protected:
+	void CoreFileUnlimit();
+
 	int ParseOpt(int argc, char** argv);
 
 	void Usage()const;
+
+	void Daemon();
 
 protected:
 	std::string _appname;
@@ -42,6 +46,7 @@ protected:
 	std::string _log_file;
 	int _log_level;
 	int _log_withpid;
+	int _daemon;
 };
 
 #endif

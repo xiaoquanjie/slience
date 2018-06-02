@@ -195,9 +195,9 @@ namespace logger {
 		_logidx = newday ? 1 : _logidx + 1;
 		std::string name = _logname_(now, _pid, _filename, _logidx,_withpid);
 #ifdef M_PLATFORM_WIN
-		_file = _fsopen(name.c_str(), "w+", _SH_DENYWR);
+		_file = _fsopen(name.c_str(), "a"/*"w+"*/, _SH_DENYWR);
 #else
-		_file = fopen(name.c_str(), "w+");
+		_file = fopen(name.c_str(), "a"/*"w+"*/);
 #endif
 	}
 
