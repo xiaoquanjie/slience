@@ -12,6 +12,11 @@
 #include <sys/param.h>
 #endif
 
+
+bool ApplicationBase::_app_exit = false;
+
+/////////////////////////////////////////////////////////////
+
 ApplicationBase::ApplicationBase() {
 	_log_level = base::logger::LOG_LEVEL_TRACE;
 	_log_withpid = 0;
@@ -32,16 +37,42 @@ int ApplicationBase::Init(int argc, char** argv) {
 		if (0 != ret)
 			break;
 
+		// set work dir
+		SetWorkDir();
+
+		// can't start two process
+		ret = KillExist();
+		if (ret != 0) {
+			printf("can't kill old process\n");
+			exit(0);
+		}
+
 		// set daemon
 		Daemon();
 
-		// set log
+		// init signal
+		InitSigHandler();
+
+		// init log
 		SetLogFileName(_log_file, (bool)_log_withpid);
 		SetLogLevel(_log_level);
 
+		ret = WritePid();
+		if (0 != ret) {
+			break;
+		}
+
+		ret = OnInit();
+		if (ret != 0) {
+			LogError("init error.....");
+			break;
+		}
+
 	} while (false);
 
-	LogInfo("application init " << _appname);
+	LogInfo("application param : _appname=" << _appname);
+	LogInfo("application param : _log_file=" << _log_file);
+	LogInfo("application param : _log_level=" << _log_level);
 	return ret;
 }
 
@@ -57,27 +88,13 @@ const std::string& ApplicationBase::PidFile()const {
 	return _pid_file;
 }
 
-int ApplicationBase::OnInit() {
-	return 0;
-}
-
-int ApplicationBase::OnTick(const base::timestamp& now) {
-	return 0;
-}
-
-int ApplicationBase::OnReload() {
-	return 0;
-}
-
-int ApplicationBase::OnProc() {
-	return 0;
-}
-
-int ApplicationBase::OnExit() {
-	return 0;
-}
-
 int ApplicationBase::Run() {
+	while (!_app_exit) {
+		OnProc();
+		Sleep(50);
+	}
+	OnExit();
+	LogInfo("application exit..................");
 	return 0;
 }
 
@@ -96,6 +113,7 @@ void ApplicationBase::CoreFileUnlimit() {
 }
 
 int ApplicationBase::ParseOpt(int argc, char** argv) {
+	_workdir = base::StringUtil::directory(argv[0]);
 	_appname = base::StringUtil::basename(argv[0]);
 	_appname = base::StringUtil::remove_from_end(_appname, ".exe");
 	_pid_file = _appname + ".pid";
@@ -165,6 +183,14 @@ void ApplicationBase::Usage()const {
 	printf("--log_level		the log level\n");
 }
 
+void ApplicationBase::SetWorkDir() {
+#ifdef M_PLATFORM_WIN
+	SetCurrentDirectoryA(_workdir.c_str());
+#else
+	chdir(_workdir.c_str());
+#endif
+}
+
 void ApplicationBase::Daemon() {
 	if (_daemon != 1)
 		return;
@@ -197,4 +223,70 @@ void ApplicationBase::Daemon() {
 
 	umask(0);
 #endif
+}
+
+int ApplicationBase::ReadPid() {
+	int pid = -1;
+	FILE* fp = myfopen(_pid_file.c_str(), "rt", _SH_DENYRW);
+	if (!fp) {
+		LogWarn("read pid error, can't open file=" << _pid_file);
+		return -1;
+	}
+
+	myfscanf(fp, "%d", &pid);
+	fclose(fp);
+	return pid;
+}
+
+int ApplicationBase::WritePid() {
+	FILE* fp = myfopen(_pid_file.c_str(), "wt", _SH_DENYRW);
+	if (!fp) {
+		LogWarn("write pid error, can't open file=" << _pid_file);
+		return -1;
+	}
+
+	fprintf(fp, "%d\n", static_cast<int>(GetCurrentProcessId()));
+	fflush(fp);
+	fclose(fp);
+	return 0;
+}
+
+int ApplicationBase::InitSigHandler() {
+#ifndef M_PLATFORM_WIN
+	struct sigaction sa;
+	memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = OnExitProcess;
+	sigaction(SIGINT, &sa, NULL);
+	sigaction(SIGTERM, &sa, NULL);
+	sigaction(SIGQUIT, &sa, NULL);
+	sigaction(SIGHUP, &sa, NULL);
+#endif
+	return 0;
+}
+
+int ApplicationBase::KillExist() {
+	int pid = ReadPid();
+	if (-1 == pid)
+		return 0;
+
+#ifdef M_PLATFORM_WIN
+	HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, pid);
+	if (hProcess == NULL) {
+		printf("OpenProcess fail, pid=%d\n", pid);
+		return 0;
+	}
+	if (!TerminateProcess(hProcess, 0)) {
+		return -1;
+	}
+	WaitForSingleObject(hProcess, INFINITE);
+	printf("kill old process over\n");
+#else
+	kill((pid_t)pid, SIGQUIT);
+#endif
+
+	return 0;
+}
+
+void ApplicationBase::OnExitProcess(int) {
+	_app_exit = true;
 }

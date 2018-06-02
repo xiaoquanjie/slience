@@ -5,9 +5,6 @@
 #include "slience/base/singletion.hpp"
 
 class RouterApplication : public ApplicationBase {
-public:
-	int Run() override;
-
 protected:
 	int OnInit() override;
 

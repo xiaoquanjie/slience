@@ -26,6 +26,17 @@ public:
 		}
 		return src;
 	}
+
+	static std::string directory(const std::string& path) {
+		char delimiters[] = { '\\', '/' };
+		for (unsigned int idx = 0; idx < sizeof(delimiters) / sizeof(char); ++idx) {
+			size_t pos = path.find_last_of(delimiters[idx]);
+			if (pos != std::string::npos) {
+				return path.substr(0, pos);
+			}
+		}
+		return path;
+	}
 };
 
 M_BASE_NAMESPACE_END

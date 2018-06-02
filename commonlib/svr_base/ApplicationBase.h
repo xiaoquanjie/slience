@@ -10,9 +10,9 @@ public:
 
 	virtual ~ApplicationBase();
 
-	virtual int Init(int argc, char** argv);
+	int Init(int argc, char** argv);
 
-	virtual int Run();
+	int Run();
 
 	const std::string& ConfigFilePath()const;
 
@@ -20,15 +20,25 @@ public:
 
 	const std::string& PidFile()const;
 protected:
-	virtual int OnInit();
+	virtual int OnInit() {
+		return 0;
+	}
 
-	virtual int OnTick(const base::timestamp& now);
+	virtual int OnTick(const base::timestamp& now) {
+		return -1;
+	}
 
-	virtual int OnReload();
+	virtual int OnReload() {
+		return -1;
+	}
 
-	virtual int OnProc();
+	virtual int OnProc() {
+		return -1;
+	}
 
-	virtual int OnExit();
+	virtual int OnExit() {
+		return -1;
+	}
 
 protected:
 	void CoreFileUnlimit();
@@ -37,9 +47,23 @@ protected:
 
 	void Usage()const;
 
+	void SetWorkDir();
+
 	void Daemon();
 
+	int ReadPid();
+
+	int WritePid();
+
+	int InitSigHandler();
+
+	int KillExist();
+
 protected:
+	static void OnExitProcess(int);
+
+protected:
+	std::string _workdir;
 	std::string _appname;
 	std::string _pid_file;
 	std::string _conf_file;
@@ -47,6 +71,9 @@ protected:
 	int _log_level;
 	int _log_withpid;
 	int _daemon;
+
+	// application state
+	static bool _app_exit;
 };
 
 #endif
