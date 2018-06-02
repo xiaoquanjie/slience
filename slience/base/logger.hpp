@@ -781,42 +781,42 @@ M_BASE_NAMESPACE_END
 #define LogTrace(content)\
 {\
 	if (base::logger::LOG_LEVEL_TRACE>=GetLogLevel()){\
-	base::logger::logimpl(base::logger::LOG_LEVEL_TRACE).stream() <<__FILE__<<"("__FUNCTION__ << ")|"<< content; \
+	base::logger::logimpl(base::logger::LOG_LEVEL_TRACE).stream() <<__FILE__<<"(" << __FUNCTION__ << ")|"<< content; \
 	}\
 }
 
 #define LogDebug(content)\
 {\
 	if (base::logger::LOG_LEVEL_DEBUG>=GetLogLevel()){\
-	base::logger::logimpl(base::logger::LOG_LEVEL_DEBUG).stream() << __FILE__ << "("__FUNCTION__ << ")|" << content; \
+	base::logger::logimpl(base::logger::LOG_LEVEL_DEBUG).stream() << __FILE__ << "(" << __FUNCTION__ << ")|" << content; \
 	}\
 }
 
 #define LogInfo(content)\
 {\
 	if (base::logger::LOG_LEVEL_INFO>=GetLogLevel()){\
-	base::logger::logimpl(base::logger::LOG_LEVEL_INFO).stream() << __FILE__ << "("__FUNCTION__ << ")|" << content; \
+	base::logger::logimpl(base::logger::LOG_LEVEL_INFO).stream() << __FILE__ << "(" << __FUNCTION__ << ")|" << content; \
 	}\
 }
 
 #define LogWarn(content)\
 {\
 	if (base::logger::LOG_LEVEL_WARN>=GetLogLevel()){\
-	base::logger::logimpl(base::logger::LOG_LEVEL_WARN).stream() << __FILE__ << "("__FUNCTION__ << ")|" << content; \
+	base::logger::logimpl(base::logger::LOG_LEVEL_WARN).stream() << __FILE__ << "(" << __FUNCTION__ << ")|" << content; \
 	}\
 }
 
 #define LogError(content)\
 {\
 	if (base::logger::LOG_LEVEL_ERROR>=GetLogLevel()){\
-	base::logger::logimpl(base::logger::LOG_LEVEL_ERROR).stream() << __FILE__ << "("__FUNCTION__ << ")|" << content; \
+	base::logger::logimpl(base::logger::LOG_LEVEL_ERROR).stream() << __FILE__ << "(" << __FUNCTION__ << ")|" << content; \
 	}\
 }
 
 #define LogFatal(content)\
 {\
 	if (base::logger::LOG_LEVEL_FATAL>=GetLogLevel()){\
-	base::logger::logimpl(base::logger::LOG_LEVEL_FATAL).stream() << __FILE__ << "("__FUNCTION__ << ")|" << content; \
+	base::logger::logimpl(base::logger::LOG_LEVEL_FATAL).stream() << __FILE__ << "(" << __FUNCTION__ << ")|" << content; \
 	}\
 }
 
