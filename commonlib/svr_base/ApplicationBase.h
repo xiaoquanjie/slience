@@ -41,6 +41,7 @@ protected:
 	std::string _conf_file;
 	std::string _log_file;
 	int _log_level;
+	int _log_withpid;
 };
 
 #endif

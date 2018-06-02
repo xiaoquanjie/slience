@@ -5,6 +5,7 @@
 
 ApplicationBase::ApplicationBase() {
 	_log_level = base::logger::LOG_LEVEL_TRACE;
+	_log_withpid = 0;
 }
 
 ApplicationBase::~ApplicationBase() {
@@ -18,7 +19,7 @@ int ApplicationBase::Init(int argc, char** argv) {
 		if (0 != ret)
 			break;
 
-		SetLogFileName(_log_file, false);
+		SetLogFileName(_log_file, (bool)_log_withpid);
 		SetLogLevel(_log_level);
 
 	} while (false);
@@ -79,7 +80,8 @@ int ApplicationBase::ParseOpt(int argc, char** argv) {
 		{"help", 0, 0, 'h'},
 		{"daemon", 0, 0, 'D'},
 		{"log_file", 1, &opt_char, 'L'},
-		{"log_level", 1, &opt_char, 'l'}
+		{"log_level", 1, &opt_char, 'l'},
+		{"log_withpid", 1, &opt_char, 'p'}
 	};
 
 	int opt_idx = 0;
@@ -96,6 +98,9 @@ int ApplicationBase::ParseOpt(int argc, char** argv) {
 				break;
 			case 'l':
 				_log_level = base::GetOptArgI();
+				break;
+			case 'p':
+				_log_withpid = base::GetOptArgI();
 				break;
 			}
 			break;

@@ -1,0 +1,1 @@
+start ./bin/routersvr.exe --config_file ./conf/routersvr/routersvr.conf --log_file ./win_log/routersvr
