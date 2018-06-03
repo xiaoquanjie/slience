@@ -9,10 +9,7 @@
 #ifndef M_PLATFORM_WIN
 #include <sys/time.h>
 #else
-#ifndef M_WIN32_LEAN_AND_MEAN  
-#define WIN32_LEAN_AND_MEAN // 在所有Windows.h包含的地方加上它
-#endif
-#include <windows.h>
+#include "slience/base/win.hpp"
 #include <WinSock2.h>	// // for timeval 
 #endif
 

@@ -16,13 +16,10 @@
 
 #include "slience/base/config.hpp"
 #include <assert.h>
+#include "slience/base/win.hpp"
 M_BASE_NAMESPACE_BEGIN
 
 #ifdef M_PLATFORM_WIN
-#ifndef M_WIN32_LEAN_AND_MEAN  
-#define WIN32_LEAN_AND_MEAN // 在所有Windows.h包含的地方加上它
-#endif
-#include <windows.h>
 
 template<typename T, int N = 0>
 class tlsdata

@@ -34,10 +34,7 @@
 #include <stdlib.h>
 
 #ifdef M_PLATFORM_WIN
-#ifndef M_WIN32_LEAN_AND_MEAN  
-#define WIN32_LEAN_AND_MEAN // 在所有Windows.h包含的地方加上它
-#endif
-#include <Windows.h>
+#include "slience/base/win.hpp"
 #include <WinSock2.h>
 #include <WS2tcpip.h>
 #include <exception>
@@ -45,7 +42,6 @@
 #include <memory>
 #include <functional>
 #include <MSWSock.h>
-// #include <Windows.h>					// 要在socket头文件后面
 #pragma comment(lib,"WS2_32.lib")
 #else
 #include <arpa/inet.h>

@@ -246,6 +246,12 @@
     <ClInclude Include="..\slience\socket\winsock_init.hpp">
       <Filter>slience\socket</Filter>
     </ClInclude>
+    <ClInclude Include="svr_base\ApplicationFunc.hpp">
+      <Filter>svr_base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\slience\base\win.hpp">
+      <Filter>slience\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\slience\socket\ioaccess.ipp">

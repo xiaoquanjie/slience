@@ -103,6 +103,7 @@
     <ClInclude Include="..\slience\base\thread.hpp" />
     <ClInclude Include="..\slience\base\timer.hpp" />
     <ClInclude Include="..\slience\base\tls.hpp" />
+    <ClInclude Include="..\slience\base\win.hpp" />
     <ClInclude Include="..\slience\coroutine\config.hpp" />
     <ClInclude Include="..\slience\coroutine\coroutine.hpp" />
     <ClInclude Include="..\slience\coroutine\co_linux_impl.hpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="..\slience\synccall\synccall_coclient.hpp" />
     <ClInclude Include="..\slience\synccall\synccall_svr.hpp" />
     <ClInclude Include="svr_base\ApplicationBase.h" />
+    <ClInclude Include="svr_base\ApplicationFunc.hpp" />
     <ClInclude Include="svr_base\getopt.h" />
     <ClInclude Include="svr_base\getopt.hpp" />
   </ItemGroup>

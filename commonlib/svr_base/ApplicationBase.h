@@ -19,6 +19,9 @@ public:
 	const std::string& AppName()const;
 
 	const std::string& PidFile()const;
+
+	const base::timestamp& Now()const;
+
 protected:
 	virtual int OnInit() {
 		return 0;
@@ -29,7 +32,7 @@ protected:
 	}
 
 	virtual int OnReload() {
-		return -1;
+		return 0;
 	}
 
 	virtual int OnProc() {
@@ -41,26 +44,11 @@ protected:
 	}
 
 protected:
-	void CoreFileUnlimit();
-
 	int ParseOpt(int argc, char** argv);
 
 	void Usage()const;
 
-	void SetWorkDir();
-
-	void Daemon();
-
-	int ReadPid();
-
-	int WritePid();
-
-	int InitSigHandler();
-
-	int KillExist();
-
-protected:
-	static void OnExitProcess(int);
+	bool CheckReload();
 
 protected:
 	std::string _workdir;
@@ -71,6 +59,8 @@ protected:
 	int _log_level;
 	int _log_withpid;
 	int _daemon;
+
+	base::timestamp _now;
 
 	// application state
 	static bool _app_exit;
