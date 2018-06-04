@@ -9,3 +9,5 @@ blade-bin
 .SConstruct.lock
 .sconsign.dblite
 .vs
+/protobuflib/win32
+/protobuflib/win64
