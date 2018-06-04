@@ -1,0 +1,5 @@
+package config;
+
+message RouterSvrConfig {
+	optional int32 log_level = 1;
+}
