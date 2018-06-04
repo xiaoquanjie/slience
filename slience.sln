@@ -1,28 +1,54 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "commonlib", "commonlib\commonlib.vcxproj", "{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EE769691-8A57-41AD-904B-35606660162E} = {EE769691-8A57-41AD-904B-35606660162E}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "routersvr", "routersvr\routersvr.vcxproj", "{148047A1-AF1D-4F0D-ADBF-BD92144D767D}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED} = {BD516388-238C-4DE9-9E1E-AE28AC51A8ED}
+		{EE769691-8A57-41AD-904B-35606660162E} = {EE769691-8A57-41AD-904B-35606660162E}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protolib", "protolib\protolib.vcxproj", "{EE769691-8A57-41AD-904B-35606660162E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}.Debug|Win32.ActiveCfg = Debug|Win32
 		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}.Debug|Win32.Build.0 = Debug|Win32
+		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}.Debug|x64.ActiveCfg = Debug|Win32
 		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}.Release|Win32.ActiveCfg = Release|Win32
 		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}.Release|Win32.Build.0 = Release|Win32
+		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}.Release|x64.ActiveCfg = Release|Win32
 		{148047A1-AF1D-4F0D-ADBF-BD92144D767D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{148047A1-AF1D-4F0D-ADBF-BD92144D767D}.Debug|Win32.Build.0 = Debug|Win32
+		{148047A1-AF1D-4F0D-ADBF-BD92144D767D}.Debug|x64.ActiveCfg = Debug|Win32
 		{148047A1-AF1D-4F0D-ADBF-BD92144D767D}.Release|Win32.ActiveCfg = Release|Win32
 		{148047A1-AF1D-4F0D-ADBF-BD92144D767D}.Release|Win32.Build.0 = Release|Win32
+		{148047A1-AF1D-4F0D-ADBF-BD92144D767D}.Release|x64.ActiveCfg = Release|Win32
+		{EE769691-8A57-41AD-904B-35606660162E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{EE769691-8A57-41AD-904B-35606660162E}.Debug|Win32.Build.0 = Debug|Win32
+		{EE769691-8A57-41AD-904B-35606660162E}.Debug|x64.ActiveCfg = Debug|x64
+		{EE769691-8A57-41AD-904B-35606660162E}.Debug|x64.Build.0 = Debug|x64
+		{EE769691-8A57-41AD-904B-35606660162E}.Release|Win32.ActiveCfg = Release|Win32
+		{EE769691-8A57-41AD-904B-35606660162E}.Release|Win32.Build.0 = Release|Win32
+		{EE769691-8A57-41AD-904B-35606660162E}.Release|x64.ActiveCfg = Release|x64
+		{EE769691-8A57-41AD-904B-35606660162E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {48CCF2BC-0553-4BBD-B608-9591FD33656D}
 	EndGlobalSection
 EndGlobal

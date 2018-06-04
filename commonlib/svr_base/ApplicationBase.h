@@ -3,6 +3,7 @@
 
 #include <string>
 #include "slience/base/timer.hpp"
+#include "slience/base/buffer.hpp"
 
 class ApplicationBase {
 public:
