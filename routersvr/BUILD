@@ -8,6 +8,5 @@ cc_binary(
     deps = [
         '//commonlib:commonlib',
 		'//protolib:protolib',
-        '#protobuf',
     ],
 )

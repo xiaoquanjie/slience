@@ -4,6 +4,7 @@ cc_library(
 	   'src/routersvr_config.pb.cc',
     ],
 	deps = [
+		'#protobuf',
     ],
     link_all_symbols = True,
 )
