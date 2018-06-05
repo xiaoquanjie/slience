@@ -11,3 +11,4 @@ blade-bin
 .vs
 /protobuflib/win32
 /protobuflib/win64
+/protobuflib/linux
