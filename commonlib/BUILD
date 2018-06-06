@@ -10,6 +10,7 @@ cc_library(
 
     deps = [
 		'#pthread',
+		'#sqlcppconn'
     ],
 
     link_all_symbols = True,

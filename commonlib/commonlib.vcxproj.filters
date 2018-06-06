@@ -53,6 +53,12 @@
     <Filter Include="google\protobuf\compiler\python">
       <UniqueIdentifier>{1055a261-a872-4481-b68d-eb42aac82cf6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="mysql_wrapper">
+      <UniqueIdentifier>{52b6c16e-5a41-43c1-86c3-0a30dbc328c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mysql_wrapper\cppconn">
+      <UniqueIdentifier>{40561236-0e77-4771-a6c1-1f49b9ebd156}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="svr_base\getopt.c">
@@ -824,6 +830,66 @@
     </ClInclude>
     <ClInclude Include="..\google\protobuf\wrappers.pb.h">
       <Filter>google\protobuf</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\mysql_connection.h">
+      <Filter>mysql_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\mysql_driver.h">
+      <Filter>mysql_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\mysql_error.h">
+      <Filter>mysql_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\build_config.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\config.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\connection.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\datatype.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\driver.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\exception.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\metadata.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\parameter_metadata.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\prepared_statement.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\resultset.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\resultset_metadata.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\sqlstring.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\statement.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\variant.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\version_info.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\cppconn\warning.h">
+      <Filter>mysql_wrapper\cppconn</Filter>
+    </ClInclude>
+    <ClInclude Include="..\mysql_wrapper\mysql_wrapper.h">
+      <Filter>mysql_wrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

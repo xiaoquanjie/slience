@@ -4,6 +4,7 @@
 #include "commonlib/svr_base/getopt.hpp"
 #include "commonlib/svr_base/ApplicationFunc.hpp"
 
+#include "mysql_wrapper/mysql_wrapper.h"
 #include "protolib/src/routersvr_config.pb.h"
 
 /////////////////////////////////////////////////////////////
@@ -72,9 +73,10 @@ int ApplicationBase::Init(int argc, char** argv) {
 	LogInfo("application param : _appname=" << _appname);
 	LogInfo("application param : _log_file=" << _log_file);
 	LogInfo("application param : _log_level=" << _log_level);
-	 
-	config::RouterSvrConfig routersvr_config;
-	routersvr_config.ShortDebugString();
+	
+	SqlConnectionPtr conn_ptr = MysqlWrapper::GetConnect("", "", "", 0);
+
+	config::RouterSvrConfig config;
 	return ret;
 }
 

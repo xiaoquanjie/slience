@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 #if defined(_MSC_VER) && _MSC_VER<1900   // MS VC++ 14.0 _MSC_VER = 1900 (Visual Studio 2015)
-#  define snprintf sprintf_s  
+#define snprintf sprintf_s  
 #endif 
 
 #define myfopen(path, mode, flag) _fsopen(path, mode, flag)
