@@ -12,3 +12,6 @@ blade-bin
 /protobuflib/win32
 /protobuflib/win64
 /protobuflib/linux
+/thirdparty_library/protobuf/win32
+/thirdparty_library/protobuf/win64
+
