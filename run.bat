@@ -1,1 +1,1 @@
-start ./bin/routersvr.exe --config_file ./conf/routersvr/routersvr.conf
+start ./bin/routersvrd.exe --config_file ./conf/routersvr/routersvr.conf
