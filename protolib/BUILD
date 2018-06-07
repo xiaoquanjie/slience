@@ -6,5 +6,6 @@ cc_library(
 	deps = [
 		'#protobuf',
     ],
-    link_all_symbols = True,
+	
+    # link_all_symbols = True,
 )

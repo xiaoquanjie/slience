@@ -1,4 +1,5 @@
 #!/bin/sh
 
-root_path=`pwd`
-mysql_path=${root_path}\
+exec ./link.sh
+cp -rf ./protobuf/linux/* /usr/local/lib
+cp -rf ./mysql/linux_lib64/* /usr/local/lib

@@ -10,10 +10,10 @@ cc_library(
 
     deps = [
 		'#pthread',
-		'#sqlcppconn'
+		'#mysqlcppconn'
     ],
 
-    link_all_symbols = True,
+    #link_all_symbols = True,
 )
 
 
