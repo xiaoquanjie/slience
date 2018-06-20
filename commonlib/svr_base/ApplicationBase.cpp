@@ -74,9 +74,6 @@ int ApplicationBase::Init(int argc, char** argv) {
 	LogInfo("application param : _log_file=" << _log_file);
 	LogInfo("application param : _log_level=" << _log_level);
 	
-	SqlConnectionPtr conn_ptr = MysqlWrapper::GetConnect("", "", "", 0);  
-	  
-	config::RouterSvrConfig config;
 	return ret;
 }
 

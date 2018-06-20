@@ -1,0 +1,27 @@
+cc_library(
+    name = 'hiredis_wrapper',
+    srcs = [
+      'adlist.cpp',
+	  'async.cpp',
+	  'command.cpp',
+	  'crc16.cpp',
+	  'dict.cpp',
+	  'hiarray.cpp',
+	  'hircluster.cpp',
+	  'hiredis.cpp',
+	  'hiutil.cpp',
+	  'net.cpp',
+	  'read.cpp',
+	  'sds.cpp',
+	  'wrapper/redis_connection.cpp',
+	  'wrapper/redis_hash.cpp',
+	  'wrapper/redis_list.cpp',
+	  'wrapper/redis_others.cpp',
+	  'wrapper/redis_pool.cpp',
+	  'wrapper/redis_set.cpp',
+	  'wrapper/redis_sort_set.cpp',
+	  'wrapper/redis_string.cpp',
+    ],
+    deps = [
+    ],
+)

@@ -10,11 +10,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "commonlib", "commonlib\comm
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "routersvr", "routersvr\routersvr.vcxproj", "{148047A1-AF1D-4F0D-ADBF-BD92144D767D}"
 	ProjectSection(ProjectDependencies) = postProject
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094} = {1A1F7A04-B191-4DA7-8C9F-780B83DE7094}
 		{BD516388-238C-4DE9-9E1E-AE28AC51A8ED} = {BD516388-238C-4DE9-9E1E-AE28AC51A8ED}
 		{EE769691-8A57-41AD-904B-35606660162E} = {EE769691-8A57-41AD-904B-35606660162E}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protolib", "protolib\protolib.vcxproj", "{EE769691-8A57-41AD-904B-35606660162E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hiredis_wrapper", "hiredis_wrapper\hiredis_wrapper.vcxproj", "{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +47,14 @@ Global
 		{EE769691-8A57-41AD-904B-35606660162E}.Release|Win32.Build.0 = Release|Win32
 		{EE769691-8A57-41AD-904B-35606660162E}.Release|x64.ActiveCfg = Release|x64
 		{EE769691-8A57-41AD-904B-35606660162E}.Release|x64.Build.0 = Release|x64
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Debug|Win32.Build.0 = Debug|Win32
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Debug|x64.ActiveCfg = Debug|x64
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Debug|x64.Build.0 = Debug|x64
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|Win32.ActiveCfg = Release|Win32
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|Win32.Build.0 = Release|Win32
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|x64.ActiveCfg = Release|x64
+		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

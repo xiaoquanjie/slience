@@ -438,7 +438,7 @@ namespace logger {
 		}
 	}
 
-	logstream::buffer_type& logstream::buffer() {
+	inline logstream::buffer_type& logstream::buffer() {
 		return _buffer;
 	}
 

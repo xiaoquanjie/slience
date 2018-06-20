@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="wrapper">
+      <UniqueIdentifier>{5131adb2-f70d-4143-b2c7-b3cbcbb372d6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="wrapper\convert.hpp">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\mutex.hpp">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\redis_connection.hpp">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\redis_pool.hpp">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\redis_wrapper.hpp">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\redis_wrapper_config.hpp">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="wrapper\variant.h">
+      <Filter>wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="adlist.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="async.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="command.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="config.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="dict.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="fmacros.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hiarray.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hircluster.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hiredis.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="hiutil.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="net.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="read.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="sds.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="win32.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="wrapper\redis_connection.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_hash.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_list.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_others.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_pool.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_set.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_sort_set.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper\redis_string.cpp">
+      <Filter>wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="adlist.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="async.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="command.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="crc16.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="dict.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hiarray.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hircluster.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hiredis.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="hiutil.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="net.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="read.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="sds.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="BUILD" />
+  </ItemGroup>
+</Project>

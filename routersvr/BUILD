@@ -8,5 +8,6 @@ cc_binary(
     deps = [
         '//commonlib:commonlib',
 		'//protolib:protolib',
+		'//hiredis_wrapper:hiredis_wrapper'
     ],
 )
