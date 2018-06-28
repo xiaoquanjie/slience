@@ -69,9 +69,6 @@
     <ClInclude Include="base\tls.hpp">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="base\util.hpp">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="base\win.hpp">
       <Filter>base</Filter>
     </ClInclude>
@@ -243,6 +240,18 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="base\mutexlock.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\logger.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\string_util.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\timer.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\thread.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>

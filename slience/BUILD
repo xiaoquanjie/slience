@@ -9,6 +9,9 @@ cc_library(
 	   'base/condition.cpp',
 	   'base/mutexlock.cpp',
 	   'base/logger.cpp',
+	   'base/string_util.cpp',
+	   'base/timer.cpp',
+	   'base/thread.cpp',
     ],
 
     deps = [

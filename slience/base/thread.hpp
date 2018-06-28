@@ -26,33 +26,17 @@
 
 M_BASE_NAMESPACE_BEGIN
 
-class IRunnable
-{
+class IRunnable {
 public:
 	virtual void run(void* param) = 0;
 	virtual ~IRunnable() {}
 };
 
 #ifndef M_PLATFORM_WIN
-namespace detail
-{
-	static unsigned int tid() {
-		static __thread unsigned int t_thread_id;
-		if (__builtin_expect(t_thread_id == 0, 0)) {
-			t_thread_id = gettid();
-		}
-		return t_thread_id;
-	}
+namespace detail {
+	unsigned int tid();
 
-	static const char* tid_str() {
-		static __thread char t_thread_id_str[32];
-		static __thread int t_id_str_flag;
-		if (__builtin_expect(t_id_str_flag == 0, 0)) {
-			t_id_str_flag = 1;
-			snprintf(t_thread_id_str, sizeof(t_thread_id_str), "%5d ", tid());
-		}
-		return t_thread_id_str;
-	}
+	const char* tid_str();
 }
 #endif
 
@@ -262,47 +246,25 @@ public:
 #endif
 	}
 
-	~thread()
-	{
-#ifdef M_PLATFORM_WIN
-		CloseHandle(_handler);
-#endif
-	}
+	~thread();
 
-	void join(){
-		M_THREAD_JOIN(_handler);
-	}
+	void join();
 
-	void detach(){
-		M_CLOSE_THREAD_HANDLE(_handler);
-	}
+	void detach();
 
-	unsigned int tid()const{
-		return _thrid;
-	}
+	unsigned int tid()const;
 
-	const std::string tid_str()const {
-		return _thrid_str;
-	}
+	const std::string tid_str()const;
 
-	static unsigned int ctid(){
-		return M_CUR_THREADID;
-	}
+	static unsigned int ctid();
 
 #ifdef M_PLATFORM_WIN
-	static std::string ctid_str() {
-		unsigned int id = ctid();
-		return std::to_string(id);
-	}
+	static std::string ctid_str();
 #else
-	static const char* ctid_str() {
-		return detail::tid_str();
-	}
+	static const char* ctid_str();
 #endif
 
-	static void sleep(unsigned int milsec){
-		M_MIL_SLEEP(milsec);
-	}
+	static void sleep(unsigned int milsec);
 
 private:
 	unsigned int _thrid;
