@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protolib", "protolib\protol
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "hiredis_wrapper", "hiredis_wrapper\hiredis_wrapper.vcxproj", "{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "slience", "slience\slience.vcxproj", "{B6D43274-EE16-4488-BA38-863805CB3CCB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,6 +57,14 @@ Global
 		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|Win32.Build.0 = Release|Win32
 		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|x64.ActiveCfg = Release|x64
 		{1A1F7A04-B191-4DA7-8C9F-780B83DE7094}.Release|x64.Build.0 = Release|x64
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Debug|Win32.Build.0 = Debug|Win32
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Debug|x64.ActiveCfg = Debug|x64
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Debug|x64.Build.0 = Debug|x64
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Release|Win32.ActiveCfg = Release|Win32
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Release|Win32.Build.0 = Release|Win32
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Release|x64.ActiveCfg = Release|x64
+		{B6D43274-EE16-4488-BA38-863805CB3CCB}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

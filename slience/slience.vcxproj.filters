@@ -1,0 +1,249 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <None Include="BUILD" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="base">
+      <UniqueIdentifier>{3a2ce8b8-5b00-40f0-bd13-ebc74ae2718f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="coroutine">
+      <UniqueIdentifier>{cd74c8cf-9031-40ec-86c4-d3c3d13c9899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="netio">
+      <UniqueIdentifier>{63836e2b-5030-4e8b-8708-f32dfd18114e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="socket">
+      <UniqueIdentifier>{33cf7321-ce56-4644-93b4-de73a5a3fc05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="synccall">
+      <UniqueIdentifier>{abb3dca3-f25e-4bf8-92c6-6fdebca2c37b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base\atomic.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\buffer.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\circular_queue.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\compatibility.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\condition.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\config.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\logger.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\mutexlock.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\noncopyable.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\singletion.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\slist.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\string_util.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\svector.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\thread.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\timer.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\tls.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\util.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\win.hpp">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="coroutine\co_linux_impl.hpp">
+      <Filter>coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="coroutine\co_win_impl.hpp">
+      <Filter>coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="coroutine\config.hpp">
+      <Filter>coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="coroutine\coroutine.hpp">
+      <Filter>coroutine</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\config.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\hconnector_impl.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\heartbeat.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\hsocket_impl.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\httpmsg.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\log.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\netio.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\netio_impl.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\tconnector_impl.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="netio\tsocket_impl.hpp">
+      <Filter>netio</Filter>
+    </ClInclude>
+    <ClInclude Include="synccall\config.hpp">
+      <Filter>synccall</Filter>
+    </ClInclude>
+    <ClInclude Include="synccall\server_handler.hpp">
+      <Filter>synccall</Filter>
+    </ClInclude>
+    <ClInclude Include="synccall\synccall.hpp">
+      <Filter>synccall</Filter>
+    </ClInclude>
+    <ClInclude Include="synccall\synccall_client.hpp">
+      <Filter>synccall</Filter>
+    </ClInclude>
+    <ClInclude Include="synccall\synccall_coclient.hpp">
+      <Filter>synccall</Filter>
+    </ClInclude>
+    <ClInclude Include="synccall\synccall_svr.hpp">
+      <Filter>synccall</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\acceptor_service.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\address.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\basic_socket.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\config.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\connector_service.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\endpoint.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\epoll_access.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\error.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\gfunction.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\hdr_helper.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\io_object.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\ioaccess.ipp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\iocp_access.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\ioservice.ipp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\linux_config.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\linux_epoll.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\linuxsock_init.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\option.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\pro_hdr.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\protocol.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\service.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket_acceptor.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket_connector.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket_service.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket_stream.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\socket_tcp.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\stream_service.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\type.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\util.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\win_config.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\win_iocp.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+    <ClInclude Include="socket\winsock_init.hpp">
+      <Filter>socket</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="base\buffer.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\condition.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\mutexlock.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

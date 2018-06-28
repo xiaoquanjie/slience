@@ -2,74 +2,51 @@
 #define M_BASE_MUTEXLOCK_INCLUDE
 
 #include "slience/base/config.hpp"
+
+#ifdef M_PLATFORM_WIN
 #include "slience/base/win.hpp"
+#else 
+#include <pthread.h>
+#endif
 
 M_BASE_NAMESPACE_BEGIN
 
+class MutexLock {
+public:
+	MutexLock();
+
+	~MutexLock();
+
+	void lock();
+
+	void unlock();
+
+private:
+	MutexLock(const MutexLock&);
+	MutexLock& operator=(const MutexLock&);
+
 #ifdef M_PLATFORM_WIN
-class MutexLock
-{
-public:
-	MutexLock(){
-		InitializeCriticalSection(&_cs);
-	}
-	~MutexLock(){
-		DeleteCriticalSection(&_cs);
-	}
-	void lock(){
-		EnterCriticalSection(&_cs);
-	}
-	void unlock(){
-		LeaveCriticalSection(&_cs);
-	}
-	CRITICAL_SECTION& mutex() {
-		return _cs;
-	}
-private:
-	MutexLock(const MutexLock&);
-	MutexLock& operator=(const MutexLock&);
-
 	CRITICAL_SECTION _cs;
-};
-#endif
 
-#ifndef M_PLATFORM_WIN
-#include <pthread.h>
-class MutexLock
-{
 public:
-	MutexLock(){
-		assert(pthread_mutex_init(&_mutex, 0) == 0);
-	}
-	~MutexLock(){
-		pthread_mutex_destroy(&_mutex);
-	}
-	void lock(){
-		assert(pthread_mutex_lock(&_mutex) == 0);
-	}
-	void unlock(){
-		assert(pthread_mutex_unlock(&_mutex) == 0);
-	}
-	pthread_mutex_t& mutex() {
-		return _mutex;
-	}
-private:
-	MutexLock(const MutexLock&);
-	MutexLock& operator=(const MutexLock&);
+	CRITICAL_SECTION & mutex();
 
+#else
 	pthread_mutex_t _mutex;
-};
+
+public:
+	pthread_mutex_t & mutex();
+
 #endif
+};
 
 class ScopedLock
 {
 public:
-	ScopedLock(MutexLock& mutex) :_mutex(mutex){
-		_mutex.lock();
-	}
-	~ScopedLock(){
-		_mutex.unlock();
-	}
+	ScopedLock(MutexLock& mutex);
+	
+	~ScopedLock();
+
 private:
 	ScopedLock(const ScopedLock&);
 	ScopedLock& operator=(const ScopedLock&);
