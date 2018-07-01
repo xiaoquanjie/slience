@@ -24,34 +24,34 @@ M_SOCKET_NAMESPACE_BEGIN
 #define g_memset		 memset
 
 // global function about socket 
-#define g_socket		::socket
-#define g_bind			::bind
-#define g_listen		::listen
-#define g_accept		::accept
-#define g_connect		::connect
-#define g_recv			::recv
-#define g_send			::send
-#define g_recvfrom		::recvfrom
-#define g_sendto		::sendto
-#define g_shutdown		::shutdown
-#define g_getsockopt	::getsockopt
-#define g_setsockopt	::setsockopt
-#define g_htons			::htons
-#define g_ntohs			::ntohs
-#define g_htonl			::htonl
-#define g_ntohl			::ntohl
-#define g_inet_addr		::inet_addr	// 错误时将返回1，意味着(255.255.255.255)不能被用来转换
-#define g_inet_ntoa		::inet_ntoa	// 非线程安全
-#define g_inet_pton		::inet_pton
-#define g_inet_ntop		::inet_ntop
-#define g_getsockname	::getsockname	// 获取本地socket地址信息，未调用bind情况下调用connect
-#define g_getpeername	::getpeername
-#define g_gethostbyname	::gethostbyname	// 仅支持ipv4
-#define g_gethostbyaddr	::gethostbyaddr	// 仅支持ipv4
-#define g_getservbyname	::getservbyname
-#define g_getservbyport	::getservbyport
-#define g_getaddrinfo	::getaddrinfo
-#define g_freeaddrinfo	::freeaddrinfo
+#define g_socket		socket
+#define g_bind			bind
+#define g_listen		listen
+#define g_accept		accept
+#define g_connect		connect
+#define g_recv			recv
+#define g_send			send
+#define g_recvfrom		recvfrom
+#define g_sendto		sendto
+#define g_shutdown		shutdown
+#define g_getsockopt	getsockopt
+#define g_setsockopt	setsockopt
+#define g_htons			htons
+#define g_ntohs			ntohs
+#define g_htonl			htonl
+#define g_ntohl			ntohl
+#define g_inet_addr		inet_addr	// 错误时将返回1，意味着(255.255.255.255)不能被用来转换
+#define g_inet_ntoa		inet_ntoa	// 非线程安全
+#define g_inet_pton		inet_pton
+#define g_inet_ntop		inet_ntop
+#define g_getsockname	getsockname	// 获取本地socket地址信息，未调用bind情况下调用connect
+#define g_getpeername	getpeername
+#define g_gethostbyname	gethostbyname	// 仅支持ipv4
+#define g_gethostbyaddr	gethostbyaddr	// 仅支持ipv4
+#define g_getservbyname	getservbyname
+#define g_getservbyport	getservbyport
+#define g_getaddrinfo	getaddrinfo
+#define g_freeaddrinfo	freeaddrinfo
 
 
 // IPV6地址测试函数
@@ -73,17 +73,17 @@ M_SOCKET_NAMESPACE_BEGIN
 #define g_getlasterr		WSAGetLastError
 #define g_setlasterr		WSASetLastError
 #define g_closesocket		closesocket
-#define g_wsastartup		::WSAStartup
-#define g_wsacleanup		::WSACleanup
-#define g_ioctlsocket		::ioctlsocket
-#define g_wsarecv			::WSARecv
-#define g_wsasend			::WSASend
-#define g_closehandle		::CloseHandle
-#define g_createiocompletionport		::CreateIoCompletionPort
-#define g_cancelio			::CancelIo
-#define	g_postqueuedcompletionstatus	::PostQueuedCompletionStatus
-#define g_getqueuedcompletionstatus		::GetQueuedCompletionStatus
-#define g_sleep				::Sleep
+#define g_wsastartup		WSAStartup
+#define g_wsacleanup		WSACleanup
+#define g_ioctlsocket		ioctlsocket
+#define g_wsarecv			WSARecv
+#define g_wsasend			WSASend
+#define g_closehandle		CloseHandle
+#define g_createiocompletionport		CreateIoCompletionPort
+#define g_cancelio			CancelIo
+#define	g_postqueuedcompletionstatus	PostQueuedCompletionStatus
+#define g_getqueuedcompletionstatus		GetQueuedCompletionStatus
+#define g_sleep				Sleep
 #endif
 
 #ifndef M_PLATFORM_WIN

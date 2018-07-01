@@ -40,35 +40,12 @@
 #define M_ERR_TIMEOUT				(M_ERR_BASE_NAG_NUM+19) // 超时
 
 M_SOCKET_NAMESPACE_BEGIN
-namespace detail
-{
+namespace detail {
 	struct error_defined {
 		s_int32_t   error;
 		const char* msg;
 	};
-	static const error_defined gErrorDefined[]=
-	{
-		{0,"undefined"},
-		{1,"socket is open"},
-		{2,"endpoint is invalid"},
-		{3,"iocp object existed"},
-		{4,"iocp object is invalid"},
-		{5,"load AcceptEx function pointer fail"},
-		{6,"load ConnectEx function pointer fail"},
-		{7,"epoll fd existed"},
-		{8,"connect fail"},
-		{9,"posted accept request"},
-		{10,"posted connect request"},
-		{11,"posted write request"},
-		{12,"posted read request"},
-		{13,"accept fail"},
-		{14,"read fail"},
-		{15,"write fail"},
-		{16,"bad descriptor"},
-		{17,"not service exist"},
-		{18,"can't convert to block from nonblock"},
-		{19,"operation time out"}
-	};
+	extern const error_defined gErrorDefined[];
 }
 
 #define M_ERR_LAST g_getlasterr()
@@ -81,20 +58,19 @@ namespace detail
 			msg = g_getlastmsg(error);\
 	}
 
-class SocketError
-{
+class SocketError {
 public:
-	M_SOCKET_DECL SocketError(s_int32_t error);
+	SocketError(s_int32_t error);
 
-	M_SOCKET_DECL SocketError();
+	SocketError();
 
-	M_SOCKET_DECL s_int32_t Code()const;
+	s_int32_t Code()const;
 
-	M_SOCKET_DECL std::string What()const;
+	std::string What()const;
 
-	M_SOCKET_DECL bool operator!()const;
+	bool operator!()const;
 
-	M_SOCKET_DECL operator bool()const;
+	operator bool()const;
 
 protected:
 	bool operator!=(const SocketError&)const;
@@ -102,29 +78,6 @@ protected:
 protected:
 	s_int32_t _error;
 };
-
-M_SOCKET_DECL SocketError::SocketError(s_int32_t error):_error(error){}
-
-M_SOCKET_DECL SocketError::SocketError():_error(0){}
-
-M_SOCKET_DECL s_int32_t SocketError::Code()const{ return _error;}
-
-M_SOCKET_DECL std::string SocketError::What()const
-{
-	std::string msg;
-	M_GET_ERROR_MSG(_error, msg);
-	return msg;
-}
-
-M_SOCKET_DECL bool SocketError::operator !()const
-{
-	return (_error == 0);
-}
-
-M_SOCKET_DECL SocketError::operator bool()const
-{
-	return (_error != 0);
-}
 
 M_SOCKET_NAMESPACE_END
 

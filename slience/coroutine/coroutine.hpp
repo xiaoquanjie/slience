@@ -18,6 +18,7 @@ typedef void(*_coroutine_func_)(void*ud);
 #define COROUTINE_DEAD	  (4)
 
 #define DEFAULT_COROUTINE (1024)
+#define M_INVALID_COROUTINE_ID (0xFFFFFFFF)
 
 #ifdef M_PLATFORM_WIN
 struct _coroutine_ {
@@ -98,7 +99,7 @@ public:
 		if (schedule._curco) {
 			return schedule._curco->_id;
 		}
-		return -1;
+		return M_INVALID_COROUTINE_ID;
 	}
 	static void destroy(int co_id);
 
@@ -203,10 +204,10 @@ base::MutexLock BaseCoroutineTask<T>::_mutex;
 class CoroutineTask : public BaseCoroutineTask<CoroutineTask>{
 public:
 	static bool doResume() {
-		if (Coroutine::curid() == -1) {
+		if (Coroutine::curid() == M_INVALID_COROUTINE_ID) {
 			id_circular_queue& idqueue = gresumetaskque;
 			if (!idqueue.empty()) {
-				int id = -1;
+				int id = M_INVALID_COROUTINE_ID;
 				idqueue.pop_front(id);
 				Coroutine::resume(id);
 				return true;
@@ -216,13 +217,13 @@ public:
 	}
 
 	static void doResume(int id) {
-		if (Coroutine::curid() == -1) {
+		if (Coroutine::curid() == M_INVALID_COROUTINE_ID) {
 			Coroutine::resume(id);
 		}
 	}
 
 	static void doThrResume() {
-		if (Coroutine::curid() == -1) {
+		if (Coroutine::curid() == M_INVALID_COROUTINE_ID) {
 			unsigned int thrid = base::thread::ctid();
 			intlist tmp;
 			_mutex.lock();
@@ -259,7 +260,7 @@ public:
 	}
 
 	static bool doTask() {
-		if (Coroutine::curid() == -1) {
+		if (Coroutine::curid() == M_INVALID_COROUTINE_ID) {
 			co_task* task = _get_task();
 			if (task) {
 				co_task_wrapper* wrapper = _get_co_task_wrapper();
@@ -272,7 +273,7 @@ public:
 	}
 
 	static void doTask(void(*func)(void*), void*p) {
-		if (Coroutine::curid() == -1) {
+		if (Coroutine::curid() == M_INVALID_COROUTINE_ID) {
 			co_task* task = 0;
 			taskvector& tl = gfreetaskvec;
 			if (!tl.empty()) {
@@ -306,7 +307,7 @@ public:
 	}
 
 	static void clrTask() {
-		if (Coroutine::curid() == -1) {
+		if (Coroutine::curid() == M_INVALID_COROUTINE_ID) {
 			taskvector& tl = gfreetaskvec;
 			while (tl.size()) {
 				free(tl.back());

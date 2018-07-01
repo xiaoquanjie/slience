@@ -17,6 +17,8 @@ struct IIoService {
 		_implidx = 0;
 	}
 
+	virtual ~IIoService(){}
+
 	virtual void Run() = 0;
 
 	virtual void Run(SocketError&) = 0;

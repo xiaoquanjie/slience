@@ -20,7 +20,9 @@ bool basecoroutine<T>::initEnv(unsigned int stack_size, bool pri_stack) {
 		schedule._cap = DEFAULT_COROUTINE;
 		schedule._co = (_coroutine_**)malloc(sizeof(_coroutine_*)*schedule._cap);
 		memset(schedule._co, 0, sizeof(_coroutine_*)*schedule._cap);
+		return true;
 	}
+	return false;
 }
 
 template<typename T>

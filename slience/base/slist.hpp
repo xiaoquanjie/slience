@@ -13,21 +13,21 @@ protected:
 		Node *next;
 	};
 public:
-	inline slist();
+	slist();
 
-	inline ~slist();
+	~slist();
 	
-	inline void push_back(const T& t);
+	void push_back(const T& t);
 
-	inline T front();
+	T front();
 
-	inline void pop_front();
+	void pop_front();
 
-	inline void clear();
+	void clear();
 	
-	inline int size()const;
+	int size()const;
 
-	inline bool empty()const;
+	bool empty()const;
 
 	void swap(slist<T>& other) {
 		if (this == &other)
@@ -44,7 +44,7 @@ public:
 		this->_tail = h;
 	}
 
-	inline void join(slist<T>& other);
+	void join(slist<T>& other);
 
 private:
 	int   _count;
@@ -53,13 +53,13 @@ private:
 };
 
 template<class T>
-inline slist<T>::slist(){
+slist<T>::slist(){
 	_tail = _head = NULL;
 	_count = 0;
 }
 
 template<class T>
-inline slist<T>::~slist(){
+slist<T>::~slist(){
 	Node *p, *pnext;
 	for (p = _head; p != NULL; p = pnext){
 		pnext = p->next;
@@ -70,7 +70,7 @@ inline slist<T>::~slist(){
 }
 
 template<class T>
-inline void slist<T>::push_back(const T& t) {
+void slist<T>::push_back(const T& t) {
 	Node* pnode = new Node;
 	pnode->val = t;
 	pnode->next = 0;
@@ -86,12 +86,12 @@ inline void slist<T>::push_back(const T& t) {
 }
 
 template<class T>
-inline T slist<T>::front() {
+T slist<T>::front() {
 	return _head->val;
 }
 
 template<class T>
-inline void slist<T>::pop_front() {
+void slist<T>::pop_front() {
 	if (_head) {
 		Node* pnode = _head->next;
 		delete _head;
@@ -103,17 +103,17 @@ inline void slist<T>::pop_front() {
 }
 
 template<class T>
-inline int slist<T>::size()const{
+int slist<T>::size()const{
 	return _count;
 }
 
 template<class T>
-inline bool slist<T>::empty()const {
+bool slist<T>::empty()const {
 	return (_count == 0);
 }
 
 template<class T>
-inline void slist<T>::clear()
+void slist<T>::clear()
 {
 	Node *cur = _head;
 	while (cur != NULL)
@@ -127,7 +127,7 @@ inline void slist<T>::clear()
 }
 
 template<class T>
-inline void slist<T>::join(slist<T>& other) {
+void slist<T>::join(slist<T>& other) {
 	if (this == &other)
 		return;
 	if (_tail) {

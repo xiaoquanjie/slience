@@ -150,7 +150,6 @@
     <ClInclude Include="coroutine\co_linux_impl.hpp" />
     <ClInclude Include="coroutine\co_win_impl.hpp" />
     <ClInclude Include="netio\config.hpp" />
-    <ClInclude Include="netio\hconnector_impl.hpp" />
     <ClInclude Include="netio\heartbeat.hpp" />
     <ClInclude Include="netio\hsocket_impl.hpp" />
     <ClInclude Include="netio\httpmsg.hpp" />
@@ -207,6 +206,10 @@
     <ClCompile Include="base\string_util.cpp" />
     <ClCompile Include="base\thread.cpp" />
     <ClCompile Include="base\timer.cpp" />
+    <ClCompile Include="netio\http_connector.cpp" />
+    <ClCompile Include="netio\sync_connector.cpp" />
+    <ClCompile Include="netio\tcp_connector.cpp" />
+    <ClCompile Include="socket\error.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

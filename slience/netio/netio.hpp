@@ -275,12 +275,11 @@ protected:
 	}
 };
 
-template<typename ConnectorType>
-class BaseTConnector :
-	public TcpStreamSocket<ConnectorType, SocketLib::TcpConnector<SocketLib::IoService> >
-{
+// class tcpconnector
+class TcpConnector 
+	: public TcpStreamSocket<TcpConnector, SocketLib::TcpConnector<SocketLib::IoService> >{
 public:
-	BaseTConnector(BaseNetIo<NetIo>& netio);
+	TcpConnector(BaseNetIo<NetIo>& netio);
 
 	SocketLib::TcpConnector<SocketLib::IoService>& GetSocket();
 
@@ -294,15 +293,6 @@ public:
 
 protected:
 	void _ConnectHandler(const SocketLib::SocketError& error, TcpConnectorPtr conector);
-};
-
-// class tcpconnector
-class TcpConnector : public BaseTConnector<TcpConnector>
-{
-public:
-	TcpConnector(BaseNetIo<NetIo>& netio)
-		:BaseTConnector(netio) {
-	}
 };
 
 // for http
@@ -374,12 +364,10 @@ protected:
 	HttpSvrSendMsg _httpmsg;
 };
 
-template<typename ConnectorType>
-class BaseHConnector :
-	public HttpBaseSocket<ConnectorType, SocketLib::TcpConnector<SocketLib::IoService>
+class HttpConnector : public HttpBaseSocket<HttpConnector, SocketLib::TcpConnector<SocketLib::IoService>
 	, HttpCliRecvMsg> {
 public:
-	BaseHConnector(BaseNetIo<NetIo>& netio);
+	HttpConnector(BaseNetIo<NetIo>& netio);
 
 	SocketLib::TcpConnector<SocketLib::IoService>& GetSocket();
 
@@ -393,14 +381,6 @@ public:
 
 protected:
 	void _ConnectHandler(const SocketLib::SocketError& error, HttpConnectorPtr conector);
-};
-
-class HttpConnector : public BaseHConnector<HttpConnector>
-{
-public:
-	HttpConnector(BaseNetIo<NetIo>& netio)
-		:BaseHConnector(netio) {
-	}
 };
 
 // Í¬²½connector
@@ -455,8 +435,6 @@ protected:
 M_NETIO_NAMESPACE_END
 #include "slience/netio/netio_impl.hpp"
 #include "slience/netio/tsocket_impl.hpp"
-#include "slience/netio/tconnector_impl.hpp"
 #include "slience/netio/hsocket_impl.hpp"
-#include "slience/netio/hconnector_impl.hpp"
 #include "slience/netio/heartbeat.hpp"
 #endif

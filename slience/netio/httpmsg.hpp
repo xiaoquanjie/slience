@@ -32,10 +32,15 @@ struct HttpBaseMsg {
 	struct strpos {
 		int beg;
 		int end;
-		static inline void _swap(int& a, int&b) {
+		static void _swap(int& a, int&b) {
 			a = a^b;
 			b = a^b;
 			a = a^b;
+		}
+		static void _swap(size_t& a, size_t& b) {
+			a = a ^ b;
+			b = a ^ b;
+			a = a ^ b;
 		}
 		void Swap(strpos& other) {
 			_swap(this->beg, other.beg);
@@ -49,7 +54,7 @@ struct HttpBaseMsg {
 	strpos _body;
 	int    _flag;
 	bool   _assistflag;
-	int    _header_iter;
+	size_t _header_iter;
 	int    _bodysize;
 	std::vector<strpos>
 		_header_vec;

@@ -87,9 +87,6 @@
     <ClInclude Include="netio\config.hpp">
       <Filter>netio</Filter>
     </ClInclude>
-    <ClInclude Include="netio\hconnector_impl.hpp">
-      <Filter>netio</Filter>
-    </ClInclude>
     <ClInclude Include="netio\heartbeat.hpp">
       <Filter>netio</Filter>
     </ClInclude>
@@ -253,6 +250,18 @@
     </ClCompile>
     <ClCompile Include="base\thread.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="netio\sync_connector.cpp">
+      <Filter>netio</Filter>
+    </ClCompile>
+    <ClCompile Include="socket\error.cpp">
+      <Filter>socket</Filter>
+    </ClCompile>
+    <ClCompile Include="netio\http_connector.cpp">
+      <Filter>netio</Filter>
+    </ClCompile>
+    <ClCompile Include="netio\tcp_connector.cpp">
+      <Filter>netio</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
