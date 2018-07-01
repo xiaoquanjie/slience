@@ -1,5 +1,5 @@
 cc_library(
-    name = 'protolib',
+    name = 'proto',
     srcs = [
 	   'src/routersvr_config.pb.cc',
     ],

@@ -21,7 +21,7 @@ std::string StringUtil::remove_from_end(const std::string& src, const std::strin
 	return src;
 }
 
-std::string directory(const std::string& path) {
+std::string StringUtil::directory(const std::string& path) {
 	char delimiters[] = { '\\', '/' };
 	for (unsigned int idx = 0; idx < sizeof(delimiters) / sizeof(char); ++idx) {
 		size_t pos = path.find_last_of(delimiters[idx]);

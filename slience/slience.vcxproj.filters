@@ -105,9 +105,6 @@
     <ClInclude Include="netio\netio_impl.hpp">
       <Filter>netio</Filter>
     </ClInclude>
-    <ClInclude Include="netio\tconnector_impl.hpp">
-      <Filter>netio</Filter>
-    </ClInclude>
     <ClInclude Include="netio\tsocket_impl.hpp">
       <Filter>netio</Filter>
     </ClInclude>

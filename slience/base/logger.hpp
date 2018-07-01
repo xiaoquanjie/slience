@@ -31,7 +31,7 @@ namespace logger {
 	bool _issameday_(time_t& t1, time_t& t2);
 
 	// ∫¡√Îº∂
-	static long long _gettime_();
+	long long _gettime_();
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 

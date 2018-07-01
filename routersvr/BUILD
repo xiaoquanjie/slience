@@ -6,8 +6,9 @@ cc_binary(
 	   'all_src.cpp'
     ],
     deps = [
-        '//commonlib:commonlib',
-		'//protolib:protolib',
-		'//hiredis_wrapper:hiredis_wrapper'
+        '//commonlib:common',
+		'//protolib:proto',
+		'//hiredis_wrapper:hiredis_wrapper',
+		'//slience:slience'
     ],
 )

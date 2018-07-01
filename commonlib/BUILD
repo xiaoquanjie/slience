@@ -3,7 +3,7 @@
 #)
 
 cc_library(
-    name = 'commonlib',
+    name = 'common',
     srcs = [
 	   'all_src.cpp',
     ],

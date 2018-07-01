@@ -14,7 +14,7 @@
     <ProjectGuid>{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>commonlib</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17134.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -294,74 +294,6 @@
     <ClInclude Include="..\mysql_wrapper\mysql_driver.h" />
     <ClInclude Include="..\mysql_wrapper\mysql_error.h" />
     <ClInclude Include="..\mysql_wrapper\mysql_wrapper.h" />
-    <ClInclude Include="..\slience\base\atomic.hpp" />
-    <ClInclude Include="..\slience\base\buffer.hpp" />
-    <ClInclude Include="..\slience\base\circular_queue.hpp" />
-    <ClInclude Include="..\slience\base\compatibility.hpp" />
-    <ClInclude Include="..\slience\base\condition.hpp" />
-    <ClInclude Include="..\slience\base\config.hpp" />
-    <ClInclude Include="..\slience\base\logger.hpp" />
-    <ClInclude Include="..\slience\base\mutexlock.hpp" />
-    <ClInclude Include="..\slience\base\noncopyable.hpp" />
-    <ClInclude Include="..\slience\base\singletion.hpp" />
-    <ClInclude Include="..\slience\base\slist.hpp" />
-    <ClInclude Include="..\slience\base\string_util.hpp" />
-    <ClInclude Include="..\slience\base\svector.hpp" />
-    <ClInclude Include="..\slience\base\thread.hpp" />
-    <ClInclude Include="..\slience\base\timer.hpp" />
-    <ClInclude Include="..\slience\base\tls.hpp" />
-    <ClInclude Include="..\slience\base\win.hpp" />
-    <ClInclude Include="..\slience\coroutine\config.hpp" />
-    <ClInclude Include="..\slience\coroutine\coroutine.hpp" />
-    <ClInclude Include="..\slience\coroutine\co_linux_impl.hpp" />
-    <ClInclude Include="..\slience\coroutine\co_win_impl.hpp" />
-    <ClInclude Include="..\slience\netio\config.hpp" />
-    <ClInclude Include="..\slience\netio\hconnector_impl.hpp" />
-    <ClInclude Include="..\slience\netio\heartbeat.hpp" />
-    <ClInclude Include="..\slience\netio\hsocket_impl.hpp" />
-    <ClInclude Include="..\slience\netio\httpmsg.hpp" />
-    <ClInclude Include="..\slience\netio\log.hpp" />
-    <ClInclude Include="..\slience\netio\netio.hpp" />
-    <ClInclude Include="..\slience\netio\netio_impl.hpp" />
-    <ClInclude Include="..\slience\netio\tconnector_impl.hpp" />
-    <ClInclude Include="..\slience\netio\tsocket_impl.hpp" />
-    <ClInclude Include="..\slience\socket\acceptor_service.hpp" />
-    <ClInclude Include="..\slience\socket\address.hpp" />
-    <ClInclude Include="..\slience\socket\basic_socket.hpp" />
-    <ClInclude Include="..\slience\socket\config.hpp" />
-    <ClInclude Include="..\slience\socket\connector_service.hpp" />
-    <ClInclude Include="..\slience\socket\endpoint.hpp" />
-    <ClInclude Include="..\slience\socket\epoll_access.hpp" />
-    <ClInclude Include="..\slience\socket\error.hpp" />
-    <ClInclude Include="..\slience\socket\gfunction.hpp" />
-    <ClInclude Include="..\slience\socket\hdr_helper.hpp" />
-    <ClInclude Include="..\slience\socket\iocp_access.hpp" />
-    <ClInclude Include="..\slience\socket\io_object.hpp" />
-    <ClInclude Include="..\slience\socket\linuxsock_init.hpp" />
-    <ClInclude Include="..\slience\socket\linux_config.hpp" />
-    <ClInclude Include="..\slience\socket\linux_epoll.hpp" />
-    <ClInclude Include="..\slience\socket\option.hpp" />
-    <ClInclude Include="..\slience\socket\protocol.hpp" />
-    <ClInclude Include="..\slience\socket\pro_hdr.hpp" />
-    <ClInclude Include="..\slience\socket\service.hpp" />
-    <ClInclude Include="..\slience\socket\socket.hpp" />
-    <ClInclude Include="..\slience\socket\socket_acceptor.hpp" />
-    <ClInclude Include="..\slience\socket\socket_connector.hpp" />
-    <ClInclude Include="..\slience\socket\socket_service.hpp" />
-    <ClInclude Include="..\slience\socket\socket_stream.hpp" />
-    <ClInclude Include="..\slience\socket\socket_tcp.hpp" />
-    <ClInclude Include="..\slience\socket\stream_service.hpp" />
-    <ClInclude Include="..\slience\socket\type.hpp" />
-    <ClInclude Include="..\slience\socket\util.hpp" />
-    <ClInclude Include="..\slience\socket\winsock_init.hpp" />
-    <ClInclude Include="..\slience\socket\win_config.hpp" />
-    <ClInclude Include="..\slience\socket\win_iocp.hpp" />
-    <ClInclude Include="..\slience\synccall\config.hpp" />
-    <ClInclude Include="..\slience\synccall\server_handler.hpp" />
-    <ClInclude Include="..\slience\synccall\synccall.hpp" />
-    <ClInclude Include="..\slience\synccall\synccall_client.hpp" />
-    <ClInclude Include="..\slience\synccall\synccall_coclient.hpp" />
-    <ClInclude Include="..\slience\synccall\synccall_svr.hpp" />
     <ClInclude Include="svr_base\ApplicationBase.h" />
     <ClInclude Include="svr_base\ApplicationFunc.hpp" />
     <ClInclude Include="svr_base\getopt.h" />
@@ -369,8 +301,6 @@
     <ClInclude Include="svr_base\msgbase.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\slience\socket\ioaccess.ipp" />
-    <None Include="..\slience\socket\ioservice.ipp" />
     <None Include="BUILD" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

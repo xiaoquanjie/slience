@@ -3,7 +3,7 @@
 #)
 
 cc_library(
-    name = 'sliencelib',
+    name = 'slience',
     srcs = [
 	   'base/buffer.cpp',
 	   'base/condition.cpp',
