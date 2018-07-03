@@ -2,7 +2,7 @@
 
 M_NETIO_NAMESPACE_BEGIN
 
-TcpConnector::TcpConnector(BaseNetIo<NetIo>& netio)
+TcpConnector::TcpConnector(NetIo& netio)
 	:TcpStreamSocket<TcpConnector, SocketLib::TcpConnector<SocketLib::IoService> >(netio){
 }
 

@@ -157,7 +157,7 @@
     <ClInclude Include="netio\httpmsg.hpp" />
     <ClInclude Include="netio\log.hpp" />
     <ClInclude Include="netio\netio.hpp" />
-    <ClInclude Include="netio\netio_impl.hpp" />
+    <ClCompile Include="netio\netio.cpp" />
     <ClInclude Include="netio\tsocket_impl.hpp" />
     <ClInclude Include="socket\acceptor_service.hpp" />
     <ClInclude Include="socket\address.hpp" />

@@ -4,8 +4,9 @@
 #include <string>
 #include "slience/base/timer.hpp"
 #include "slience/base/buffer.hpp"
+#include "slience/netio/netio.hpp"
 
-class ApplicationBase {
+class ApplicationBase : public netiolib::NetIo {
 public:
 	ApplicationBase();
 

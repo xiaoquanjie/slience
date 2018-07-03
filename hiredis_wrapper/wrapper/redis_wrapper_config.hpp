@@ -20,7 +20,9 @@
 #include <arpa/inet.h>
 #endif
 
+#ifndef shard_ptr_t
 #define shard_ptr_t std::tr1::shared_ptr
+#endif
 
 // redis“Ï≥£
 struct RedisException

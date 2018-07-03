@@ -43,7 +43,9 @@ public:
 	void Write(const void* data, s_uint32_t len);
 
 	template<typename T>
-	void Write(T const& value);
+	void Write(T const& value) {
+		Write(&value, sizeof(value));
+	}
 
 	void Write(std::string const& value);
 
@@ -56,7 +58,9 @@ public:
 	void Read(void* data, s_uint32_t len);
 
 	template<typename T>
-	void Read(T& value);
+	void Read(T& value) {
+		Read(&value, sizeof(value));
+	}
 
 	void Read(std::string& value);
 

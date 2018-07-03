@@ -49,7 +49,7 @@ namespace detail {
 }
 
 #define M_ERR_LAST g_getlasterr()
-#define M_MAX_DEFINED_ERR (sizeof(detail::gErrorDefined)/sizeof(detail::error_defined))
+#define M_MAX_DEFINED_ERR ((s_int32_t)sizeof(detail::gErrorDefined)/(s_int32_t)sizeof(detail::error_defined))
 #define M_GET_ERROR_MSG(error,msg) \
 	{  s_int32_t erridx = (M_ERR_BASE_NUM+error);\
 	   if (erridx>=0 && erridx<M_MAX_DEFINED_ERR)\

@@ -53,13 +53,12 @@ typedef shard_ptr_t<SyncConnector>  SyncConnectorPtr;
 
 #define lasterror base::tlsdata<SocketLib::SocketError,0>::data()
 
-template<typename NetIoType>
-class BaseNetIo {
+class NetIo {
 public:
-	BaseNetIo();
-	BaseNetIo(SocketLib::s_uint32_t backlog);
+	NetIo();
+	NetIo(SocketLib::s_uint32_t backlog);
 
-	virtual ~BaseNetIo();
+	virtual ~NetIo();
 
 	// 建立一个监听
 	bool ListenOne(const SocketLib::Tcp::EndPoint& ep);
@@ -82,9 +81,9 @@ public:
 	size_t  ServiceCount();
 
 	// 获取最后的异常
-	inline SocketLib::SocketError GetLastError()const;
-	inline SocketLib::IoService& GetIoService();
-	inline SocketLib::s_uint32_t LocalEndian()const;
+	SocketLib::SocketError GetLastError()const;
+	SocketLib::IoService& GetIoService();
+	SocketLib::s_uint32_t LocalEndian()const;
 
 	/*
 	*以下三个函数定义为虚函数，以便根据实际业务的模式来做具体模式的消息包分发处理。
@@ -118,26 +117,14 @@ protected:
 		TcpAcceptorPtr& acceptor);
 
 protected:
+	NetIo(const NetIo&);
+	NetIo& operator=(const NetIo&);
+
+protected:
 	SocketLib::IoService   _ioservice;
 	SocketLib::s_uint32_t  _backlog;
 	SocketLib::s_uint32_t  _endian;
 	base::slist<base::thread*> _threadlist;
-};
-
-// class netio
-class NetIo : public BaseNetIo<NetIo>
-{
-public:
-	NetIo() :
-		BaseNetIo() {
-	}
-	NetIo(SocketLib::s_uint32_t backlog)
-		:BaseNetIo(backlog) {
-	}
-
-protected:
-	NetIo(const NetIo&);
-	NetIo& operator=(const NetIo&);
 };
 
 enum {
@@ -166,7 +153,7 @@ protected:
 	};
 
 public:
-	TcpBaseSocket(BaseNetIo<NetIo>& netio);
+	TcpBaseSocket(NetIo& netio);
 
 	virtual ~TcpBaseSocket();
 
@@ -203,7 +190,7 @@ protected:
 	bool _TrySendData();
 
 protected:
-	BaseNetIo<NetIo>& _netio;
+	NetIo& _netio;
 	SocketType*  _socket;
 	_writerinfo_ _writer;
 
@@ -241,17 +228,17 @@ protected:
 	void _TryRecvData();
 
 public:
-	TcpStreamSocket(BaseNetIo<NetIo>& netio);
+	TcpStreamSocket(NetIo& netio);
 };
 
 // class tcpsocket
 class TcpSocket :
 	public TcpStreamSocket<TcpSocket, SocketLib::TcpSocket<SocketLib::IoService> >
 {
-	friend class BaseNetIo<NetIo>;
+	friend class NetIo;
 
 public:
-	TcpSocket(BaseNetIo<NetIo>& netio)
+	TcpSocket(NetIo& netio)
 		:TcpStreamSocket(netio) {
 	}
 
@@ -279,7 +266,7 @@ protected:
 class TcpConnector 
 	: public TcpStreamSocket<TcpConnector, SocketLib::TcpConnector<SocketLib::IoService> >{
 public:
-	TcpConnector(BaseNetIo<NetIo>& netio);
+	TcpConnector(NetIo& netio);
 
 	SocketLib::TcpConnector<SocketLib::IoService>& GetSocket();
 
@@ -319,16 +306,16 @@ protected:
 	void _TryRecvData();
 
 public:
-	HttpBaseSocket(BaseNetIo<NetIo>& netio);
+	HttpBaseSocket(NetIo& netio);
 };
 
 // class httpsocket
 class HttpSocket :
 	public HttpBaseSocket<HttpSocket, SocketLib::TcpSocket<SocketLib::IoService>, HttpSvrRecvMsg>
 {
-	friend class BaseNetIo<NetIo>;
+	friend class NetIo;
 public:
-	HttpSocket(BaseNetIo<NetIo>& netio)
+	HttpSocket(NetIo& netio)
 		:HttpBaseSocket(netio) {
 	}
 
@@ -367,7 +354,7 @@ protected:
 class HttpConnector : public HttpBaseSocket<HttpConnector, SocketLib::TcpConnector<SocketLib::IoService>
 	, HttpCliRecvMsg> {
 public:
-	HttpConnector(BaseNetIo<NetIo>& netio);
+	HttpConnector(NetIo& netio);
 
 	SocketLib::TcpConnector<SocketLib::IoService>& GetSocket();
 
@@ -433,7 +420,6 @@ protected:
 };
 
 M_NETIO_NAMESPACE_END
-#include "slience/netio/netio_impl.hpp"
 #include "slience/netio/tsocket_impl.hpp"
 #include "slience/netio/hsocket_impl.hpp"
 #include "slience/netio/heartbeat.hpp"

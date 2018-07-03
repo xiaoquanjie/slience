@@ -39,7 +39,7 @@ TcpBaseSocket<T, SocketType>::_writerinfo_::~_writerinfo_() {
 }
 
 template<typename T, typename SocketType>
-TcpBaseSocket<T, SocketType>::TcpBaseSocket(BaseNetIo<NetIo>& netio)
+TcpBaseSocket<T, SocketType>::TcpBaseSocket(NetIo& netio)
 	:_netio(netio) {
 	_flag = E_STATE_STOP;
 	_extdata_func = 0;
@@ -366,7 +366,7 @@ void TcpStreamSocket<T, SocketType>::_TryRecvData() {
 }
 
 template<typename T, typename SocketType>
-TcpStreamSocket<T, SocketType>::TcpStreamSocket(BaseNetIo<NetIo>& netio)
+TcpStreamSocket<T, SocketType>::TcpStreamSocket(NetIo& netio)
 	:TcpBaseSocket<T, SocketType>(netio) {
 }
 

@@ -83,7 +83,7 @@ void HttpBaseSocket<T, SocketType, HttpMsgType>::_TryRecvData() {
 }
 
 template<typename T, typename SocketType, typename HttpMsgType>
-HttpBaseSocket<T, SocketType, HttpMsgType>::HttpBaseSocket(BaseNetIo<NetIo>& netio)
+HttpBaseSocket<T, SocketType, HttpMsgType>::HttpBaseSocket(NetIo& netio)
 	:TcpBaseSocket<T, SocketType>(netio) {
 }
 

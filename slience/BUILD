@@ -12,9 +12,11 @@ cc_library(
 	   'base/string_util.cpp',
 	   'base/timer.cpp',
 	   'base/thread.cpp',
+	   'socket/error.cpp',
 	   'netio/sync_connector.cpp',
 	   'netio/http_connector.cpp',
 	   'netio/tcp_connector.cpp',
+	   'netio/netio.cpp',
     ],
 
     deps = [

@@ -243,7 +243,9 @@
 #define M_SET_MBIT(x,y,s,e) {M_CLR_MBIT(x,s,e); x |= (y<<s);}
 #define M_GET_MBIT(x,s,e) ((x>>s) & ((1<<(e-s+1))-1))
 
+#ifndef shard_ptr_t
 #define shard_ptr_t M_TR1::shared_ptr 
+#endif
 #define enable_shared_from_this_t M_TR1::enable_shared_from_this
 #define dynamic_pointer_cast_t M_TR1::dynamic_pointer_cast
 #define function_t	M_TR1::function

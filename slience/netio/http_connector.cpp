@@ -2,7 +2,7 @@
 
 M_NETIO_NAMESPACE_BEGIN
 
-HttpConnector::HttpConnector(BaseNetIo<NetIo>& netio)
+HttpConnector::HttpConnector(NetIo& netio)
 	:HttpBaseSocket<HttpConnector, SocketLib::TcpConnector<SocketLib::IoService>
 	, HttpCliRecvMsg>(netio) {
 }
