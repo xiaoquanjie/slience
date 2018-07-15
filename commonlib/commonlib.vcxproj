@@ -90,6 +90,7 @@
     <None Include="..\google\protobuf\compiler\zip_output_unittest.sh" />
     <None Include="..\google\protobuf\io\gzip_stream_unittest.sh" />
     <None Include="svr_base\ApplicationBase.cpp" />
+    <ClCompile Include="svr_base\ApplicationFunc.cpp" />
     <ClCompile Include="svr_base\getopt.c" />
   </ItemGroup>
   <ItemGroup>
@@ -299,6 +300,7 @@
     <ClInclude Include="svr_base\getopt.h" />
     <ClInclude Include="svr_base\getopt.hpp" />
     <ClInclude Include="svr_base\msgbase.hpp" />
+    <ClInclude Include="svr_base\svrbase.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="BUILD" />

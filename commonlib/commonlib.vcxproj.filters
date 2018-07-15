@@ -49,6 +49,9 @@
     <ClCompile Include="all_src.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="svr_base\ApplicationFunc.cpp">
+      <Filter>svr_base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="svr_base\ApplicationBase.h">
@@ -668,6 +671,9 @@
     </ClInclude>
     <ClInclude Include="..\mysql_wrapper\mysql_wrapper.h">
       <Filter>mysql_wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="svr_base\svrbase.h">
+      <Filter>svr_base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

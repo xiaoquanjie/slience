@@ -13,6 +13,12 @@
     <None Include="proto\routersvr_config.proto">
       <Filter>proto</Filter>
     </None>
+    <None Include="proto\svr_base.proto">
+      <Filter>proto</Filter>
+    </None>
+    <None Include="proto\cmd.proto">
+      <Filter>proto</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\routersvr_config.pb.cc">

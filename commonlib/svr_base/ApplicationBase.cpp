@@ -89,7 +89,7 @@ const std::string& ApplicationBase::PidFile()const {
 	return _pid_file;
 }
 
-const base::timestamp& ApplicationBase::Now()const {
+const base::timestamp& ApplicationBase::GetNow()const {
 	return _now;
 }
 
@@ -187,8 +187,8 @@ void ApplicationBase::Usage()const {
 
 bool ApplicationBase::CheckReload() {
 	static base::timestamp last_check_time;
-	if ((Now().second() - last_check_time.second()) > 2) {
-		last_check_time = Now();
+	if ((GetNow().second() - last_check_time.second()) > 2) {
+		last_check_time = GetNow();
 
 		static const char* filename = "_reload_";
 		FILE *fp = myfopen(filename, "r", _SH_DENYNO);
@@ -201,4 +201,27 @@ bool ApplicationBase::CheckReload() {
 	return false;
 }
 
-///////////////////////////////////////////////////////////////////
+void ApplicationBase::OnConnected(netiolib::TcpSocketPtr& clisock) {
+	base::ScopedLock scoped(_msg_lock);
+	
+}
+
+void ApplicationBase::OnConnected(netiolib::TcpConnectorPtr& clisock, SocketLib::SocketError error) {
+	base::ScopedLock scoped(_msg_lock);
+}
+
+void ApplicationBase::OnDisconnected(netiolib::TcpSocketPtr& clisock) {
+
+}
+
+void ApplicationBase::OnDisconnected(netiolib::TcpConnectorPtr& clisock) {
+
+}
+
+void ApplicationBase::OnReceiveData(netiolib::TcpSocketPtr& clisock, SocketLib::Buffer& buffer) {
+
+}
+
+void ApplicationBase::OnReceiveData(netiolib::TcpConnectorPtr& clisock, SocketLib::Buffer& buffer) {
+
+}

@@ -5,10 +5,12 @@
 cc_library(
     name = 'common',
     srcs = [
-	   'all_src.cpp',
+	   'svr_base/ApplicationBase.cpp',
+	   'svr_base/ApplicationFunc.cpp'
     ],
 
     deps = [
+		'//slience:slience',
 		'#pthread',
 		'#mysqlcppconn'
     ],

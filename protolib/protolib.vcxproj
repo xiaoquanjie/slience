@@ -139,7 +139,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <None Include="BUILD" />
+    <None Include="proto\cmd.proto" />
     <None Include="proto\routersvr_config.proto" />
+    <None Include="proto\svr_base.proto" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\routersvr_config.pb.cc" />

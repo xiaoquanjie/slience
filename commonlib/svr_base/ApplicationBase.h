@@ -2,9 +2,8 @@
 #define M_SVR_BASE_APPLICATION_INCLUDE
 
 #include <string>
-#include "slience/base/timer.hpp"
-#include "slience/base/buffer.hpp"
-#include "slience/netio/netio.hpp"
+#include "commonlib/svr_base/svrbase.h"
+#include <unordered_map>
 
 class ApplicationBase : public netiolib::NetIo {
 public:
@@ -22,7 +21,7 @@ public:
 
 	const std::string& PidFile()const;
 
-	const base::timestamp& Now()const;
+	const base::timestamp& GetNow()const;
 
 protected:
 	virtual int OnInit() {
@@ -52,6 +51,18 @@ protected:
 
 	bool CheckReload();
 
+	void OnConnected(netiolib::TcpSocketPtr& clisock) override;
+
+	void OnConnected(netiolib::TcpConnectorPtr& clisock, SocketLib::SocketError error) override;
+
+	void OnDisconnected(netiolib::TcpSocketPtr& clisock) override;
+
+	void OnDisconnected(netiolib::TcpConnectorPtr& clisock) override;
+
+	void OnReceiveData(netiolib::TcpSocketPtr& clisock, SocketLib::Buffer& buffer) override;
+
+	void OnReceiveData(netiolib::TcpConnectorPtr& clisock, SocketLib::Buffer& buffer) override;
+
 protected:
 	std::string _workdir;
 	std::string _appname;
@@ -66,6 +77,17 @@ protected:
 
 	// application state
 	static bool _app_exit;
+
+	// message list
+	base::MutexLock _msg_lock;
+	base::slist<TcpSocketMsg*> _tcp_socket_msg;
+	base::slist<TcpSocketMsg*> _tcp_socket_msg2;
+	base::slist<TcpConnectorMsg*> _tcp_connector_msg;
+	base::slist<TcpConnectorMsg*> _tcp_connector_msg2;
+
+	// socket map
+	std::unordered_map<int, TcpSocketContext> _tcp_socket_map;
+	std::unordered_map<int, TcpConnectorContext> _tcp_connector_map;
 };
 
 #endif
