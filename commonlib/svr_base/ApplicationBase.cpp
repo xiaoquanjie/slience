@@ -5,7 +5,8 @@
 #include "commonlib/svr_base/ApplicationFunc.hpp"
 
 #include "mysql_wrapper/mysql_wrapper.h"
-#include "protolib/src/routersvr_config.pb.h"
+#include "protolib/src/svr_base.pb.h"
+#include "protolib/src/cmd.pb.h"
 
 /////////////////////////////////////////////////////////////
 
@@ -202,26 +203,133 @@ bool ApplicationBase::CheckReload() {
 }
 
 void ApplicationBase::OnConnected(netiolib::TcpSocketPtr& clisock) {
+	proto::SocketClientIn client_in;
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_IN);
+
 	base::ScopedLock scoped(_msg_lock);
+	TcpSocketMsg* pMessage = 0;
+	if (_tcp_socket_msg2.size() > 0) {
+		pMessage = _tcp_socket_msg2.front();
+		_tcp_socket_msg2.pop_front();
+	}
+	else {
+		pMessage = new TcpSocketMsg;
+	}
 	
+	std::string str = client_in.SerializeAsString();
+	frame.set_cmd_length(str.size());
+
+	pMessage->ptr = clisock;
+	pMessage->buf.Clear();
+	pMessage->buf.Write(&frame);
+	pMessage->buf.Write(str.c_str(), str.size());
+	_tcp_socket_msg.push_back(pMessage);
 }
 
 void ApplicationBase::OnConnected(netiolib::TcpConnectorPtr& clisock, SocketLib::SocketError error) {
+	proto::SocketClientIn client_in;
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_IN);
+
 	base::ScopedLock scoped(_msg_lock);
+	TcpConnectorMsg* pMessage = 0;
+	if (_tcp_connector_msg2.size() > 0) {
+		pMessage = _tcp_connector_msg2.front();
+		_tcp_connector_msg2.pop_front();
+	}
+	else {
+		pMessage = new TcpConnectorMsg;
+	}
+
+	std::string str = client_in.SerializeAsString();
+	frame.set_cmd_length(str.size());
+
+	pMessage->ptr = clisock;
+	pMessage->buf.Clear();
+	pMessage->buf.Write(&frame);
+	pMessage->buf.Write(str.c_str(), str.size());
+	_tcp_connector_msg.push_back(pMessage);
 }
 
 void ApplicationBase::OnDisconnected(netiolib::TcpSocketPtr& clisock) {
+	proto::SocketClientOut client_out;
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_OUT);
 
+	base::ScopedLock scoped(_msg_lock);
+	TcpSocketMsg* pMessage = 0;
+	if (_tcp_socket_msg2.size() > 0) {
+		pMessage = _tcp_socket_msg2.front();
+		_tcp_socket_msg2.pop_front();
+	}
+	else {
+		pMessage = new TcpSocketMsg;
+	}
+
+	std::string str = client_out.SerializeAsString();
+	frame.set_cmd_length(str.size());
+
+	pMessage->ptr = clisock;
+	pMessage->buf.Clear();
+	pMessage->buf.Write(&frame);
+	pMessage->buf.Write(str.c_str(), str.size());
+	_tcp_socket_msg.push_back(pMessage);
 }
 
 void ApplicationBase::OnDisconnected(netiolib::TcpConnectorPtr& clisock) {
+	proto::SocketClientOut client_out;
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_OUT);
 
+	base::ScopedLock scoped(_msg_lock);
+	TcpConnectorMsg* pMessage = 0;
+	if (_tcp_connector_msg2.size() > 0) {
+		pMessage = _tcp_connector_msg2.front();
+		_tcp_connector_msg2.pop_front();
+	}
+	else {
+		pMessage = new TcpConnectorMsg;
+	}
+
+	std::string str = client_out.SerializeAsString();
+	frame.set_cmd_length(str.size());
+
+	pMessage->ptr = clisock;
+	pMessage->buf.Clear();
+	pMessage->buf.Write(&frame);
+	pMessage->buf.Write(str.c_str(), str.size());
+	_tcp_connector_msg.push_back(pMessage);
 }
 
 void ApplicationBase::OnReceiveData(netiolib::TcpSocketPtr& clisock, SocketLib::Buffer& buffer) {
-
+	base::ScopedLock scoped(_msg_lock);
+	TcpSocketMsg* pMessage = 0;
+	if (_tcp_socket_msg2.size() > 0) {
+		pMessage = _tcp_socket_msg2.front();
+		_tcp_socket_msg2.pop_front();
+	}
+	else {
+		pMessage = new TcpSocketMsg;
+	}
+	pMessage->ptr = clisock;
+	pMessage->buf.Clear();
+	pMessage->buf.Write(buffer.Data(), buffer.Length());
+	_tcp_socket_msg.push_back(pMessage);
 }
 
 void ApplicationBase::OnReceiveData(netiolib::TcpConnectorPtr& clisock, SocketLib::Buffer& buffer) {
-
+	base::ScopedLock scoped(_msg_lock);
+	TcpConnectorMsg* pMessage = 0;
+	if (_tcp_connector_msg2.size() > 0) {
+		pMessage = _tcp_connector_msg2.front();
+		_tcp_connector_msg2.pop_front();
+	}
+	else {
+		pMessage = new TcpConnectorMsg;
+	}
+	pMessage->ptr = clisock;
+	pMessage->buf.Clear();
+	pMessage->buf.Write(buffer.Data(), buffer.Length());
+	_tcp_connector_msg.push_back(pMessage);
 }

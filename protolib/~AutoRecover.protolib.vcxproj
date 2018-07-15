@@ -144,10 +144,14 @@
     <None Include="proto\svr_base.proto" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\cmd.pb.cc" />
     <ClCompile Include="src\routersvr_config.pb.cc" />
+    <ClCompile Include="src\svr_base.pb.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\cmd.pb.h" />
     <ClInclude Include="src\routersvr_config.pb.h" />
+    <ClInclude Include="src\svr_base.pb.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

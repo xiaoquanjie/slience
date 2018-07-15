@@ -24,9 +24,21 @@
     <ClCompile Include="src\routersvr_config.pb.cc">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\cmd.pb.cc">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\svr_base.pb.cc">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\routersvr_config.pb.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\cmd.pb.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\svr_base.pb.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

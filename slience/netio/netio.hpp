@@ -51,7 +51,9 @@ typedef shard_ptr_t<HttpConnector>	   HttpConnectorPtr;
 typedef shard_ptr_t<SocketLib::TcpAcceptor<SocketLib::IoService> > TcpAcceptorPtr;
 typedef shard_ptr_t<SyncConnector>  SyncConnectorPtr;
 
+#ifndef lasterror
 #define lasterror base::tlsdata<SocketLib::SocketError,0>::data()
+#endif
 
 class NetIo {
 public:

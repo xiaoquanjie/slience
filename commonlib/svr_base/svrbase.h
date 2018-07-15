@@ -8,10 +8,10 @@
 #ifndef GETSETVAR
 #define GETSETVAR(type, name) \
 public: \
-    const type& get_##name() const { return name##_; } \
-    void set_##name(const type& newval) { name##_ = newval; } \
+    const type& get_##name() const { return name; } \
+    void set_##name(const type& newval) { name = newval; } \
 private: \
-    type name##_;
+    type name;
 #endif
 
 #ifdef M_PLATFORM_WIN
@@ -20,7 +20,6 @@ struct AppHeadFrame {
 #else
 struct __attribute__((__packed__)) AppHeadFrame {
 #endif
-	GETSETVAR(base::s_uint32_t, cmd);
 	GETSETVAR(base::s_uint16_t, is_broadcast);			// 消息是否广播
 	GETSETVAR(base::s_uint32_t, src_svr_type);			// 源服务器类型
 	GETSETVAR(base::s_uint32_t, dst_svr_type);			// 目标服务器类型
@@ -28,6 +27,13 @@ struct __attribute__((__packed__)) AppHeadFrame {
 	GETSETVAR(base::s_uint32_t, dst_instance_id);		// 目标服务器实例
 	GETSETVAR(base::s_uint32_t, src_transaction_id);	// 源事务id
 	GETSETVAR(base::s_uint32_t, dst_transaction_id);	// 目标事务id
+	GETSETVAR(base::s_uint32_t, cmd);					// cmd
+	GETSETVAR(base::s_uint32_t, cmd_length);			// cmd长度
+
+public:
+	AppHeadFrame() {
+		memset(this, 0, sizeof(AppHeadFrame));
+	}
 };
 #ifdef M_PLATFORM_WIN
 #pragma pack()
