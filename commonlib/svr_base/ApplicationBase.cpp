@@ -14,6 +14,7 @@ ApplicationBase::ApplicationBase() {
 	_log_level = base::logger::LOG_LEVEL_TRACE;
 	_log_withpid = 0;
 	_daemon = 0;
+	_msg_cache_size = 5000;
 }
 
 ApplicationBase::~ApplicationBase() {
@@ -94,7 +95,32 @@ const base::timestamp& ApplicationBase::GetNow()const {
 	return _now;
 }
 
+TcpSocketContext* ApplicationBase::GetTcpSocketContext(int fd) {
+	std::unordered_map<int, TcpSocketContext>::iterator iter = _tcp_socket_map.find(fd);
+	if (iter != _tcp_socket_map.end()) {
+		return &(iter->second);
+	}
+	else {
+		return 0;
+	}
+}
+
+TcpConnectorContext* ApplicationBase::GetTcpConnectorContext(int fd) {
+	std::unordered_map<int, TcpConnectorContext>::iterator iter = _tcp_connector_map.find(fd);
+	if (iter != _tcp_connector_map.end()) {
+		return &(iter->second);
+	}
+	else {
+		return 0;
+	}
+}
+
 int ApplicationBase::Run() {
+	base::slist<TcpSocketMsg*> tmp_tcp_socket_msg_list;
+	base::slist<TcpSocketMsg*> tmp_tcp_socket_msg_list2;
+	base::slist<TcpConnectorMsg*> tmp_tcp_connector_msg_list;
+	base::slist<TcpConnectorMsg*> tmp_tcp_connector_msg_list2;
+
 	while (!gAppExist) {
 		base::timestamp t_now;
 		if (t_now.millisecond() > _now.millisecond()) {
@@ -107,8 +133,94 @@ int ApplicationBase::Run() {
 			LogInfo("reload end....................");
 		}
 
-		OnProc();
-		Sleep(1);
+		if (_tcp_socket_msg_list.size() || _tcp_connector_msg_list.size()) {
+			_msg_lock.lock();
+			tmp_tcp_socket_msg_list.swap(_tcp_socket_msg_list);
+			tmp_tcp_connector_msg_list.swap(_tcp_connector_msg_list);
+			_msg_lock.unlock();
+		}	
+
+		while (tmp_tcp_connector_msg_list.size()) {
+			TcpConnectorMsg* pmsg = tmp_tcp_connector_msg_list.front();
+			if (pmsg->type == M_SOCKET_DATA) {
+				AppHeadFrame* pFrame = (AppHeadFrame*)pmsg->buf.Data();
+				const char* data = (const char*)pmsg->buf.Data() + sizeof(AppHeadFrame);
+				OnProc(pmsg->ptr->GetSocket().GetFd(), *pFrame, data, pFrame->get_cmd_length());
+			}
+			else if (pmsg->type == M_SOCKET_IN) {
+				OnConnection(pmsg->ptr, pmsg->error);
+			} 
+			else if (pmsg->type == M_SOCKET_OUT) {
+				OnDisConnection(pmsg->ptr);
+			}
+			else {
+				assert(0);
+			}
+			tmp_tcp_connector_msg_list.pop_front();
+			tmp_tcp_connector_msg_list2.push_back(pmsg);
+		}
+		while (tmp_tcp_socket_msg_list.size()) {
+			TcpSocketMsg* pmsg = tmp_tcp_socket_msg_list.front();
+			if (pmsg->type == M_SOCKET_DATA) {
+				TcpSocketContext* context = GetTcpSocketContext(pmsg->ptr->GetSocket().GetFd());
+				if (context) {
+					context->msgcount += 1;
+				}
+				AppHeadFrame* pFrame = (AppHeadFrame*)pmsg->buf.Data();
+				const char* data = (const char*)pmsg->buf.Data() + sizeof(AppHeadFrame);
+				OnProc(pmsg->ptr->GetSocket().GetFd(), *pFrame, data, pFrame->get_cmd_length());
+			}
+			else if (pmsg->type == M_SOCKET_IN) {
+				OnConnection(pmsg->ptr);
+			}
+			else if (pmsg->type == M_SOCKET_OUT) {
+				OnDisConnection(pmsg->ptr);
+			}
+			else {
+				assert(0);
+			}
+			tmp_tcp_socket_msg_list.pop_front();
+			tmp_tcp_socket_msg_list2.push_back(pmsg);
+		}
+
+		if (tmp_tcp_connector_msg_list2.size() || tmp_tcp_socket_msg_list2.size()) {
+			_msg_lock.lock();
+			// tmp_tcp_connector_msg_list2
+			if ((tmp_tcp_connector_msg_list2.size() + _tcp_connector_msg_list2.size()) <= _msg_cache_size) {
+				_tcp_connector_msg_list2.join(tmp_tcp_connector_msg_list2);
+			}
+			else {
+				while (tmp_tcp_connector_msg_list2.size()) {
+					if (_tcp_connector_msg_list2.size() < _msg_cache_size) {
+						_tcp_connector_msg_list2.push_back(tmp_tcp_connector_msg_list2.front());
+					}
+					else {
+						delete tmp_tcp_connector_msg_list2.front();
+					}
+					tmp_tcp_connector_msg_list2.pop_front();
+				}
+
+			}
+			// tmp_tcp_socket_msg_list2
+			if ((tmp_tcp_socket_msg_list2.size() + _tcp_socket_msg_list2.size()) <= _msg_cache_size) {
+				_tcp_socket_msg_list2.join(tmp_tcp_socket_msg_list2);
+			}
+			else {
+				while (tmp_tcp_socket_msg_list2.size()) {
+					if (_tcp_socket_msg_list2.size() < _msg_cache_size) {
+						_tcp_socket_msg_list2.push_back(tmp_tcp_socket_msg_list2.front());
+					}
+					else {
+						delete tmp_tcp_socket_msg_list2.front();
+					}
+					tmp_tcp_socket_msg_list2.pop_front();
+				}
+			}
+			_msg_lock.unlock();
+		}
+		else {
+			Sleep(1);
+		}
 	}
 	OnExit();
 	LogInfo("application exit..................");
@@ -203,133 +315,162 @@ bool ApplicationBase::CheckReload() {
 }
 
 void ApplicationBase::OnConnected(netiolib::TcpSocketPtr& clisock) {
-	proto::SocketClientIn client_in;
-	AppHeadFrame frame;
-	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_IN);
-
 	base::ScopedLock scoped(_msg_lock);
 	TcpSocketMsg* pMessage = 0;
-	if (_tcp_socket_msg2.size() > 0) {
-		pMessage = _tcp_socket_msg2.front();
-		_tcp_socket_msg2.pop_front();
+	if (_tcp_socket_msg_list2.size() > 0) {
+		pMessage = _tcp_socket_msg_list2.front();
+		_tcp_socket_msg_list2.pop_front();
 	}
 	else {
 		pMessage = new TcpSocketMsg;
 	}
-	
-	std::string str = client_in.SerializeAsString();
-	frame.set_cmd_length(str.size());
-
 	pMessage->ptr = clisock;
-	pMessage->buf.Clear();
-	pMessage->buf.Write(&frame);
-	pMessage->buf.Write(str.c_str(), str.size());
-	_tcp_socket_msg.push_back(pMessage);
+	pMessage->type = M_SOCKET_IN;
+	_tcp_socket_msg_list.push_back(pMessage);
 }
 
 void ApplicationBase::OnConnected(netiolib::TcpConnectorPtr& clisock, SocketLib::SocketError error) {
-	proto::SocketClientIn client_in;
-	AppHeadFrame frame;
-	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_IN);
-
 	base::ScopedLock scoped(_msg_lock);
 	TcpConnectorMsg* pMessage = 0;
-	if (_tcp_connector_msg2.size() > 0) {
-		pMessage = _tcp_connector_msg2.front();
-		_tcp_connector_msg2.pop_front();
+	if (_tcp_connector_msg_list2.size() > 0) {
+		pMessage = _tcp_connector_msg_list2.front();
+		_tcp_connector_msg_list2.pop_front();
 	}
 	else {
 		pMessage = new TcpConnectorMsg;
 	}
 
-	std::string str = client_in.SerializeAsString();
-	frame.set_cmd_length(str.size());
-
+	pMessage->error = error;
 	pMessage->ptr = clisock;
-	pMessage->buf.Clear();
-	pMessage->buf.Write(&frame);
-	pMessage->buf.Write(str.c_str(), str.size());
-	_tcp_connector_msg.push_back(pMessage);
+	pMessage->type = M_SOCKET_IN;
+	_tcp_connector_msg_list.push_back(pMessage);
 }
 
 void ApplicationBase::OnDisconnected(netiolib::TcpSocketPtr& clisock) {
-	proto::SocketClientOut client_out;
-	AppHeadFrame frame;
-	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_OUT);
-
 	base::ScopedLock scoped(_msg_lock);
 	TcpSocketMsg* pMessage = 0;
-	if (_tcp_socket_msg2.size() > 0) {
-		pMessage = _tcp_socket_msg2.front();
-		_tcp_socket_msg2.pop_front();
+	if (_tcp_socket_msg_list2.size() > 0) {
+		pMessage = _tcp_socket_msg_list2.front();
+		_tcp_socket_msg_list2.pop_front();
 	}
 	else {
 		pMessage = new TcpSocketMsg;
 	}
-
-	std::string str = client_out.SerializeAsString();
-	frame.set_cmd_length(str.size());
-
+;
 	pMessage->ptr = clisock;
-	pMessage->buf.Clear();
-	pMessage->buf.Write(&frame);
-	pMessage->buf.Write(str.c_str(), str.size());
-	_tcp_socket_msg.push_back(pMessage);
+	pMessage->type = M_SOCKET_OUT;
+	_tcp_socket_msg_list.push_back(pMessage);
 }
 
 void ApplicationBase::OnDisconnected(netiolib::TcpConnectorPtr& clisock) {
-	proto::SocketClientOut client_out;
-	AppHeadFrame frame;
-	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_OUT);
-
 	base::ScopedLock scoped(_msg_lock);
 	TcpConnectorMsg* pMessage = 0;
-	if (_tcp_connector_msg2.size() > 0) {
-		pMessage = _tcp_connector_msg2.front();
-		_tcp_connector_msg2.pop_front();
+	if (_tcp_connector_msg_list2.size() > 0) {
+		pMessage = _tcp_connector_msg_list2.front();
+		_tcp_connector_msg_list2.pop_front();
 	}
 	else {
 		pMessage = new TcpConnectorMsg;
 	}
 
-	std::string str = client_out.SerializeAsString();
-	frame.set_cmd_length(str.size());
-
 	pMessage->ptr = clisock;
-	pMessage->buf.Clear();
-	pMessage->buf.Write(&frame);
-	pMessage->buf.Write(str.c_str(), str.size());
-	_tcp_connector_msg.push_back(pMessage);
+	pMessage->type = M_SOCKET_OUT;
+	_tcp_connector_msg_list.push_back(pMessage);
 }
 
 void ApplicationBase::OnReceiveData(netiolib::TcpSocketPtr& clisock, SocketLib::Buffer& buffer) {
 	base::ScopedLock scoped(_msg_lock);
 	TcpSocketMsg* pMessage = 0;
-	if (_tcp_socket_msg2.size() > 0) {
-		pMessage = _tcp_socket_msg2.front();
-		_tcp_socket_msg2.pop_front();
+	if (_tcp_socket_msg_list2.size() > 0) {
+		pMessage = _tcp_socket_msg_list2.front();
+		_tcp_socket_msg_list2.pop_front();
 	}
 	else {
 		pMessage = new TcpSocketMsg;
 	}
+
 	pMessage->ptr = clisock;
-	pMessage->buf.Clear();
+	pMessage->type = M_SOCKET_DATA;
 	pMessage->buf.Write(buffer.Data(), buffer.Length());
-	_tcp_socket_msg.push_back(pMessage);
+	_tcp_socket_msg_list.push_back(pMessage);
 }
 
 void ApplicationBase::OnReceiveData(netiolib::TcpConnectorPtr& clisock, SocketLib::Buffer& buffer) {
 	base::ScopedLock scoped(_msg_lock);
 	TcpConnectorMsg* pMessage = 0;
-	if (_tcp_connector_msg2.size() > 0) {
-		pMessage = _tcp_connector_msg2.front();
-		_tcp_connector_msg2.pop_front();
+	if (_tcp_connector_msg_list2.size() > 0) {
+		pMessage = _tcp_connector_msg_list2.front();
+		_tcp_connector_msg_list2.pop_front();
 	}
 	else {
 		pMessage = new TcpConnectorMsg;
 	}
+
 	pMessage->ptr = clisock;
-	pMessage->buf.Clear();
+	pMessage->type = M_SOCKET_DATA;
 	pMessage->buf.Write(buffer.Data(), buffer.Length());
-	_tcp_connector_msg.push_back(pMessage);
+	_tcp_connector_msg_list.push_back(pMessage);
+}
+
+void ApplicationBase::OnConnection(netiolib::TcpConnectorPtr& clisock, SocketLib::SocketError error) {
+	if (!error) {
+		// connect success
+		int fd = clisock->GetSocket().GetFd();
+		TcpConnectorContext context;
+		context.ptr = clisock;
+		context.msgcount = 0;
+		context.tt = GetNow();
+		_tcp_connector_map[fd] = context;
+		LogInfo("new connection, remote_ip: " << clisock->RemoteEndpoint().Address() << " fd: " << fd << " time: " << context.tt.format_ymd_hms());
+	
+		proto::SocketClientIn client_in;
+		std::string str = client_in.SerializeAsString();
+		AppHeadFrame frame;
+		frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_IN);
+		OnProc(fd, frame, str.c_str(), str.size());
+	}
+}
+
+void ApplicationBase::OnConnection(netiolib::TcpSocketPtr& clisock) {
+	int fd = clisock->GetSocket().GetFd();
+	TcpSocketContext context;
+	context.ptr = clisock;
+	context.msgcount = 0;
+	context.tt = GetNow();
+	_tcp_socket_map[fd] = context;
+
+	LogInfo("new connection, remote_ip: " << clisock->RemoteEndpoint().Address() <<" fd: " << fd << " time: " << context.tt.format_ymd_hms());
+	proto::SocketClientIn client_in;
+	std::string str = client_in.SerializeAsString();
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_IN);
+	OnProc(fd, frame, str.c_str(), str.size());
+}
+
+void ApplicationBase::OnDisConnection(netiolib::TcpConnectorPtr& clisock) {
+	int fd = clisock->GetSocket().GetFd();
+	proto::SocketClientOut client_out;
+	std::string str = client_out.SerializeAsString();
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_OUT);
+
+	LogInfo("connection break, remote_ip: " << clisock->RemoteEndpoint().Address() << " fd: " << fd << " time: " << GetNow().format_ymd_hms());
+	OnProc(fd, frame, str.c_str(), str.size());
+	if (0 == _tcp_connector_map.erase(fd)) {
+		LogError("this is a bug!!!!!!!!!!!!!!!!!");
+	}
+}
+
+void ApplicationBase::OnDisConnection(netiolib::TcpSocketPtr& clisock) {
+	int fd = clisock->GetSocket().GetFd();
+	proto::SocketClientOut client_out;
+	std::string str = client_out.SerializeAsString();
+	AppHeadFrame frame;
+	frame.set_cmd(proto::CMD::CMD_SOCKET_CLIENT_OUT);
+	
+	LogInfo("connection break, remote_ip: " << clisock->RemoteEndpoint().Address() << " fd: " << fd << " time: " << GetNow().format_ymd_hms());
+	OnProc(fd, frame, str.c_str(), str.size());
+	if (0 == _tcp_socket_map.erase(fd)) {
+		LogError("this is a big bug!!!!!!!!!!!!!!!!!");
+	}
 }

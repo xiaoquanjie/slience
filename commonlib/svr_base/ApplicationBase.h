@@ -23,6 +23,10 @@ public:
 
 	const base::timestamp& GetNow()const;
 
+	TcpSocketContext* GetTcpSocketContext(int fd);
+
+	TcpConnectorContext* GetTcpConnectorContext(int fd);
+
 protected:
 	virtual int OnInit() {
 		return 0;
@@ -36,13 +40,21 @@ protected:
 		return 0;
 	}
 
-	virtual int OnProc() {
+	virtual int OnProc(int fd, AppHeadFrame& frame, const char* data, base::s_uint32_t data_len) {
 		return -1;
 	}
 
 	virtual int OnExit() {
 		return -1;
 	}
+
+	virtual void OnConnection(netiolib::TcpConnectorPtr& clisock, SocketLib::SocketError error);
+
+	virtual void OnConnection(netiolib::TcpSocketPtr& clisock);
+
+	virtual void OnDisConnection(netiolib::TcpConnectorPtr& clisock);
+
+	virtual void OnDisConnection(netiolib::TcpSocketPtr& clisock);
 
 protected:
 	int ParseOpt(int argc, char** argv);
@@ -73,6 +85,7 @@ protected:
 	int _log_withpid;
 	int _daemon;
 
+	int _msg_cache_size;
 	base::timestamp _now;
 
 	// application state
@@ -80,10 +93,10 @@ protected:
 
 	// message list
 	base::MutexLock _msg_lock;
-	base::slist<TcpSocketMsg*> _tcp_socket_msg;
-	base::slist<TcpSocketMsg*> _tcp_socket_msg2;
-	base::slist<TcpConnectorMsg*> _tcp_connector_msg;
-	base::slist<TcpConnectorMsg*> _tcp_connector_msg2;
+	base::slist<TcpSocketMsg*> _tcp_socket_msg_list;
+	base::slist<TcpSocketMsg*> _tcp_socket_msg_list2;
+	base::slist<TcpConnectorMsg*> _tcp_connector_msg_list;
+	base::slist<TcpConnectorMsg*> _tcp_connector_msg_list2;
 
 	// socket map
 	std::unordered_map<int, TcpSocketContext> _tcp_socket_map;

@@ -46,10 +46,10 @@
     <ClCompile Include="svr_base\getopt.c">
       <Filter>svr_base</Filter>
     </ClCompile>
-    <ClCompile Include="all_src.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="svr_base\ApplicationFunc.cpp">
+      <Filter>svr_base</Filter>
+    </ClCompile>
+    <ClCompile Include="svr_base\ApplicationBase.cpp">
       <Filter>svr_base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -678,9 +678,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="BUILD" />
-    <None Include="svr_base\ApplicationBase.cpp">
-      <Filter>svr_base</Filter>
-    </None>
     <None Include="..\google\protobuf\compiler\zip_output_unittest.sh">
       <Filter>google\protobuf\compiler</Filter>
     </None>

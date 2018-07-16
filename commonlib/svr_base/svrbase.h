@@ -46,19 +46,34 @@ struct TcpSocketContext {
 };
 
 struct TcpConnectorContext {
-	netiolib::TcpConnector ptr;
+	netiolib::TcpConnectorPtr ptr;
 	int msgcount;
 	base::timestamp tt;
 };
 
+#ifndef M_SOCKET_IN
+#define M_SOCKET_IN  (1)
+#endif
+
+#ifndef M_SOCKET_OUT
+#define M_SOCKET_OUT (2)
+#endif
+
+#ifndef M_SOCKET_DATA
+#define M_SOCKET_DATA (3)
+#endif
+
 struct TcpSocketMsg {
 	netiolib::TcpSocketPtr ptr;
 	base::Buffer buf;
+	base::s_uint16_t type;
 };
 
 struct TcpConnectorMsg {
 	netiolib::TcpConnectorPtr ptr;
+	SocketLib::SocketError error;
 	base::Buffer buf;
+	base::s_uint16_t type;
 };
 
 #endif
