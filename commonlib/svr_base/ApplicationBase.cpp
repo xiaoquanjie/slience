@@ -115,6 +115,11 @@ TcpConnectorContext* ApplicationBase::GetTcpConnectorContext(int fd) {
 	}
 }
 
+int ApplicationBase::OnTick(const base::timestamp& now) {
+	CheckTcpSocketExpire(now);
+	return 0;
+}
+
 int ApplicationBase::Run() {
 	base::slist<TcpSocketMsg*> tmp_tcp_socket_msg_list;
 	base::slist<TcpSocketMsg*> tmp_tcp_socket_msg_list2;
@@ -165,6 +170,7 @@ int ApplicationBase::Run() {
 				TcpSocketContext* context = GetTcpSocketContext(pmsg->ptr->GetSocket().GetFd());
 				if (context) {
 					context->msgcount += 1;
+					context->tt = GetNow();
 				}
 				AppHeadFrame* pFrame = (AppHeadFrame*)pmsg->buf.Data();
 				const char* data = (const char*)pmsg->buf.Data() + sizeof(AppHeadFrame);
@@ -312,6 +318,24 @@ bool ApplicationBase::CheckReload() {
 		}
 	}
 	return false;
+}
+
+void ApplicationBase::CheckTcpSocketExpire(const base::timestamp& now) {
+	static base::timestamp last_check_time;
+	if (now.second() - last_check_time.second() >= 15) {
+		// ten second
+		for (std::unordered_map<int, TcpSocketContext>::iterator iter = _tcp_socket_map.begin();
+			iter != _tcp_socket_map.end(); ++iter) {
+			if (now.second() - iter->second.tt.second() >= 10
+				&& iter->second.ptr->IsConnected()) {
+				// connection expire, been closed 
+				iter->second.ptr->Close();
+				LogInfo("connection expire been closed, remote_ip: " << iter->second.ptr->RemoteEndpoint().Address()
+					<< " fd: " << iter->second.ptr->GetSocket().GetFd());
+			}
+		}
+		last_check_time = now;
+	}
 }
 
 void ApplicationBase::OnConnected(netiolib::TcpSocketPtr& clisock) {

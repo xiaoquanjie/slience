@@ -41,6 +41,9 @@
     <Filter Include="mysql_wrapper\cppconn">
       <UniqueIdentifier>{40561236-0e77-4771-a6c1-1f49b9ebd156}</UniqueIdentifier>
     </Filter>
+    <Filter Include="boost">
+      <UniqueIdentifier>{97fb7176-6611-44c7-ba90-d01af7393398}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="svr_base\getopt.c">
@@ -674,6 +677,30 @@
     </ClInclude>
     <ClInclude Include="svr_base\svrbase.h">
       <Filter>svr_base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\assert.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\checked_delete.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\config.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\current_function.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\predef.h">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\scoped_ptr.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\shared_ptr.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\throw_exception.hpp">
+      <Filter>boost</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

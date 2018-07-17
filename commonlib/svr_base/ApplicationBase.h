@@ -32,9 +32,7 @@ protected:
 		return 0;
 	}
 
-	virtual int OnTick(const base::timestamp& now) {
-		return -1;
-	}
+	virtual int OnTick(const base::timestamp& now);
 
 	virtual int OnReload() {
 		return 0;
@@ -62,6 +60,8 @@ protected:
 	void Usage()const;
 
 	bool CheckReload();
+
+	void CheckTcpSocketExpire(const base::timestamp& now);
 
 	void OnConnected(netiolib::TcpSocketPtr& clisock) override;
 

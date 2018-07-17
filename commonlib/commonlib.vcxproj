@@ -93,6 +93,14 @@
     <ClCompile Include="svr_base\getopt.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\boost\assert.hpp" />
+    <ClInclude Include="..\boost\checked_delete.hpp" />
+    <ClInclude Include="..\boost\config.hpp" />
+    <ClInclude Include="..\boost\current_function.hpp" />
+    <ClInclude Include="..\boost\predef.h" />
+    <ClInclude Include="..\boost\scoped_ptr.hpp" />
+    <ClInclude Include="..\boost\shared_ptr.hpp" />
+    <ClInclude Include="..\boost\throw_exception.hpp" />
     <ClInclude Include="..\google\protobuf\any.h" />
     <ClInclude Include="..\google\protobuf\any.pb.h" />
     <ClInclude Include="..\google\protobuf\any_test.pb.h" />
