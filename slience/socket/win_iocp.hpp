@@ -166,7 +166,7 @@ namespace iodetail {
 
 	struct SocketClose {
 		SocketImpl _impl;
-		function_t<void()> _handler;
+		m_function_t<void()> _handler;
 		void Clear() {
 			_handler = 0;
 			_impl = SocketImpl();

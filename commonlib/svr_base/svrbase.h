@@ -4,6 +4,9 @@
 #include "slience/base/buffer.hpp"
 #include "slience/netio/netio.hpp"
 #include "slience/base/timer.hpp"
+#include "boost/multi_index_container.hpp"
+#include "boost/multi_index/member.hpp"
+#include "boost/multi_index/ordered_index.hpp"
 
 #ifndef GETSETVAR
 #define GETSETVAR(type, name) \
@@ -32,24 +35,20 @@ struct __attribute__((__packed__)) AppHeadFrame {
 
 public:
 	AppHeadFrame() {
-		memset(this, 0, sizeof(AppHeadFrame));
+		is_broadcast = 0;
+		src_svr_type = 0;
+		dst_svr_type = 0;
+		src_instance_id = 0;
+		dst_instance_id = 0;
+		src_transaction_id = 0;
+		dst_transaction_id = 0;
+		cmd = 0;
+		cmd_length = 0;
 	}
 };
 #ifdef M_PLATFORM_WIN
 #pragma pack()
 #endif
-
-struct TcpSocketContext {
-	netiolib::TcpSocketPtr ptr;
-	int msgcount;
-	base::timestamp tt;
-};
-
-struct TcpConnectorContext {
-	netiolib::TcpConnectorPtr ptr;
-	int msgcount;
-	base::timestamp tt;
-};
 
 #ifndef M_SOCKET_IN
 #define M_SOCKET_IN  (1)
@@ -63,6 +62,22 @@ struct TcpConnectorContext {
 #define M_SOCKET_DATA (3)
 #endif
 
+// context
+struct TcpSocketContext {
+	int fd;
+	int msgcount;
+	base::s_uint32_t tt;
+	netiolib::TcpSocketPtr ptr;
+};
+
+struct TcpConnectorContext {
+	int fd;
+	int msgcount;
+	base::s_uint32_t tt;
+	netiolib::TcpConnectorPtr ptr;
+};
+
+// message
 struct TcpSocketMsg {
 	netiolib::TcpSocketPtr ptr;
 	base::Buffer buf;
@@ -75,5 +90,50 @@ struct TcpConnectorMsg {
 	base::Buffer buf;
 	base::s_uint16_t type;
 };
+
+
+struct tag_socket_context_fd{};
+struct tag_socket_context_active{};
+
+namespace bmi = boost::multi_index;
+
+// multi index container
+typedef bmi::multi_index_container<TcpSocketContext,
+			bmi::indexed_by<
+				bmi::ordered_unique<bmi::tag<tag_socket_context_fd>, bmi::member<TcpSocketContext, int, &TcpSocketContext::fd> >,
+				bmi::ordered_non_unique<bmi::tag<tag_socket_context_active>, bmi::member<TcpSocketContext, base::s_uint32_t, &TcpSocketContext::tt> >
+			>
+> TcpSocketContextContainer;
+
+typedef bmi::multi_index_container<TcpConnectorContext,
+	bmi::indexed_by<
+	bmi::ordered_unique<bmi::tag<tag_socket_context_fd>, bmi::member<TcpConnectorContext, int, &TcpConnectorContext::fd> >,
+	bmi::ordered_non_unique<bmi::tag<tag_socket_context_active>, bmi::member<TcpConnectorContext, base::s_uint32_t, &TcpConnectorContext::tt> >
+	>
+> TcpConnectorContextContainer;
+
+// modify class
+class FuncModifySocketContext {
+public:
+	FuncModifySocketContext(int cnt, base::s_uint32_t tt) {
+		_cnt = cnt;
+		_tt = tt;
+	}
+
+	void operator()(TcpSocketContext& ctxt) {
+		ctxt.msgcount = _cnt;
+		ctxt.tt = _tt;
+	}
+
+	void operator()(TcpConnectorContext& ctxt) {
+		ctxt.msgcount = _cnt;
+		ctxt.tt = _tt;
+	}
+
+private:
+	int _cnt;
+	base::s_uint32_t _tt;
+};
+
 
 #endif

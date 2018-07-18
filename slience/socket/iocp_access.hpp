@@ -341,7 +341,7 @@ inline void IocpService::Access::AsyncSendSome(IocpService& service, SocketImpl&
 inline void IocpService::Access::_DoRun(IocpService& service, IoServiceImpl& simpl, bool isco, 
 	SocketLib::SocketError& error) 
 {
-	function_t<void()>& runhandler = service.GetRunCallback();
+	m_function_t<void()>& runhandler = service.GetRunCallback();
 	base::slist<SocketClose*> closes1;
 	base::slist<SocketClose*> closes2;
 	DWORD trans_bytes = 0;

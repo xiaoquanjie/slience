@@ -97,7 +97,7 @@ inline void EpollService::Access::Stop(EpollService& service, SocketError& error
 inline void EpollService::Access::_DoRun(EpollService& service, IoServiceImpl& simpl, bool isco,
 	SocketLib::SocketError& error) 
 {
-	function_t<void()>& runhandler = service.GetRunCallback();
+	m_function_t<void()>& runhandler = service.GetRunCallback();
 	base::slist<SocketClose*> closes1;
 	base::slist<SocketClose*> closes2;
 	const int max_events = 128;
@@ -421,7 +421,7 @@ namespace iodetail {
 			}
 		}
 
-		function_t<void(SocketError)> handler;
+		m_function_t<void(SocketError)> handler;
 		handler.swap(this->_handler);
 		this->Clear();
 		handler(error);
@@ -453,7 +453,7 @@ namespace iodetail {
 			error = error ? SocketError(M_ERR_ASYNC_CONNECT_FAIL) : SocketError(error_opt.Value());
 		//}
 
-		function_t <void(SocketError)> handler;
+		m_function_t <void(SocketError)> handler;
 		handler.swap(this->_handler);
 		this->Clear();
 		if (notify)
@@ -493,7 +493,7 @@ namespace iodetail {
 			error = error ? SocketError(M_ERR_ASYNC_WRITE_FAIL) : SocketError(error_opt.Value());
 		}
 
-		function_t <void(s_uint32_t, SocketError)> handler;
+		m_function_t <void(s_uint32_t, SocketError)> handler;
 		handler.swap(this->_handler);
 		this->Clear();
 		if (notify)
@@ -536,7 +536,7 @@ namespace iodetail {
 			error = (error) ? SocketError(M_ERR_ASYNC_READ_FAIL) : SocketError(error_opt.Value());
 		}
 
-		function_t <void(s_uint32_t, SocketError)> handler;
+		m_function_t <void(s_uint32_t, SocketError)> handler;
 		handler.swap(this->_handler);
 		this->Clear();
 		if (notify)

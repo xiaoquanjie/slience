@@ -10,6 +10,6 @@ int RouterApplication::OnReload() {
 	return 0;
 }
 
-int RouterApplication::OnProc(int fd, AppHeadFrame& frame, const char* data, base::s_uint32_t data_len) {
+int RouterApplication::OnProc(int fd, const AppHeadFrame& frame, const char* data, base::s_uint32_t data_len) {
 	return 0;
 }

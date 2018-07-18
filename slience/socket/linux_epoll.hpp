@@ -111,7 +111,7 @@ namespace iodetail {
 	struct AcceptOperation : public Oper {
 		SocketImpl _acpt_impl;
 		SocketImpl _cli_impl;
-		function_t <void(SocketError)>
+		m_function_t <void(SocketError)>
 			_handler;
 		virtual bool Complete(IoServiceImpl& serviceimpl,
 			epoll_event_t* event);
@@ -120,7 +120,7 @@ namespace iodetail {
 
 	struct ConnectOperation : public Oper {
 		SocketImpl _impl;
-		function_t <void(SocketError)>
+		m_function_t <void(SocketError)>
 			_handler;
 		virtual bool Complete(IoServiceImpl& serviceimpl,
 			epoll_event_t* event);
@@ -130,7 +130,7 @@ namespace iodetail {
 	struct WriteOperation : public Oper {
 		wsabuf_t _wsabuf;
 		SocketImpl _impl;
-		function_t <void(s_uint32_t, SocketError)>
+		m_function_t <void(s_uint32_t, SocketError)>
 			_handler;
 		virtual bool Complete(IoServiceImpl& serviceimpl,
 			epoll_event_t* event);
@@ -140,7 +140,7 @@ namespace iodetail {
 	struct ReadOperation : public Oper {
 		wsabuf_t _wsabuf;
 		SocketImpl _impl;
-		function_t <void(s_uint32_t, SocketError)>
+		m_function_t <void(s_uint32_t, SocketError)>
 			_handler;
 		virtual bool Complete(IoServiceImpl& serviceimpl,
 			epoll_event_t* event);
@@ -149,7 +149,7 @@ namespace iodetail {
 
 	struct SocketClose {
 		SocketImpl _impl;
-		function_t<void()> _handler;
+		m_function_t<void()> _handler;
 		void Clear() {
 			_handler = 0;
 			_impl = SocketImpl();

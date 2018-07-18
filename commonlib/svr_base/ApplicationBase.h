@@ -23,9 +23,9 @@ public:
 
 	const base::timestamp& GetNow()const;
 
-	TcpSocketContext* GetTcpSocketContext(int fd);
+	netiolib::TcpSocketPtr GetTcpSocketContext(int fd);
 
-	TcpConnectorContext* GetTcpConnectorContext(int fd);
+	netiolib::TcpConnectorPtr GetTcpConnectorContext(int fd);
 
 protected:
 	virtual int OnInit() {
@@ -38,7 +38,7 @@ protected:
 		return 0;
 	}
 
-	virtual int OnProc(int fd, AppHeadFrame& frame, const char* data, base::s_uint32_t data_len) {
+	virtual int OnProc(int fd, const AppHeadFrame& frame, const char* data, base::s_uint32_t data_len) {
 		return -1;
 	}
 
@@ -98,9 +98,9 @@ protected:
 	base::slist<TcpConnectorMsg*> _tcp_connector_msg_list;
 	base::slist<TcpConnectorMsg*> _tcp_connector_msg_list2;
 
-	// socket map
-	std::unordered_map<int, TcpSocketContext> _tcp_socket_map;
-	std::unordered_map<int, TcpConnectorContext> _tcp_connector_map;
+	// socket container
+	TcpSocketContextContainer _tcp_socket_container;
+	TcpConnectorContextContainer _tcp_connector_container;
 };
 
 #endif

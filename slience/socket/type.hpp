@@ -64,22 +64,22 @@ enum EShutdownType
 #define M_TCP_ACCEPTOR_PTR(Service)  shard_ptr_t<TcpAcceptor<Service> >
 #define M_TCP_CONNECTOR_PTR(Service) shard_ptr_t<TcpConnector<Service> >
 
-#define M_ACCEPT_HANDLER_TYPE(Service) function_t<\
+#define M_ACCEPT_HANDLER_TYPE(Service) m_function_t<\
 		void(M_TCP_ACCEPTOR_PTR(Service), M_TCP_SOCKET_PTR(Service), SocketError)\
 >
-#define M_CONNECT_HANDLER_TYPE(Service) function_t<\
+#define M_CONNECT_HANDLER_TYPE(Service) m_function_t<\
 		void(M_TCP_CONNECTOR_PTR(Service),SocketError)\
 >
-#define M_WRITE_HANDLER_TYPE(Service) function_t<\
+#define M_WRITE_HANDLER_TYPE(Service) m_function_t<\
 		void(M_TCP_SOCKET_PTR(Service),const s_byte_t*,s_uint32_t, s_uint32_t, SocketError)\
 >
-#define M_READ_HANDLER_TYPE(Service) function_t<\
+#define M_READ_HANDLER_TYPE(Service) m_function_t<\
 		void(M_TCP_SOCKET_PTR(Service),s_byte_t*,s_uint32_t, s_uint32_t, SocketError)\
 >
-#define M_C_WRITE_HANDLER_TYPE(Service) function_t<\
+#define M_C_WRITE_HANDLER_TYPE(Service) m_function_t<\
 		void(M_TCP_CONNECTOR_PTR(Service),const s_byte_t*,s_uint32_t, s_uint32_t, SocketError)\
 >
-#define M_C_READ_HANDLER_TYPE(Service) function_t<\
+#define M_C_READ_HANDLER_TYPE(Service) m_function_t<\
 		void(M_TCP_CONNECTOR_PTR(Service),s_byte_t*,s_uint32_t, s_uint32_t, SocketError)\
 >
 
@@ -108,10 +108,10 @@ enum EShutdownType
 #define M_TCP_ACCEPTOR(Service)  TcpAcceptor<Service>
 #define M_TCP_CONNECTOR(Service) TcpConnector<Service>
 
-#define M_COMMON_HANDLER_TYPE(Service) function_t<\
+#define M_COMMON_HANDLER_TYPE(Service) m_function_t<\
 		void(SocketError)\
 >
-#define M_RW_HANDLER_TYPE(Service) function_t<\
+#define M_RW_HANDLER_TYPE(Service) m_function_t<\
 		void(s_uint32_t,SocketError)\
 >
 
@@ -140,10 +140,10 @@ struct HandlerTraits<ReturnType(*)(Arg1)>
 };
 
 template<typename ReturnType, typename Arg1>
-struct HandlerTraits<function_t<ReturnType(Arg1)> >
+struct HandlerTraits<m_function_t<ReturnType(Arg1)> >
 	//:public HandlerTraits<ReturnType(*)(Arg1)>
 {
-	typedef function_t<ReturnType(Arg1)> type;
+	typedef m_function_t<ReturnType(Arg1)> type;
 	typedef ReturnType return_type;
 	typedef Arg1 arg1_type;
 };
@@ -159,10 +159,10 @@ struct HandlerTraits<ReturnType(*)(Arg1, Arg2)>
 };
 
 template<typename ReturnType, typename Arg1, typename Arg2>
-struct HandlerTraits<function_t<ReturnType(Arg1, Arg2)> >
+struct HandlerTraits<m_function_t<ReturnType(Arg1, Arg2)> >
 	:public HandlerTraits<ReturnType(*)(Arg1, Arg2)>
 {
-	typedef function_t<ReturnType(Arg1, Arg2)> type;
+	typedef m_function_t<ReturnType(Arg1, Arg2)> type;
 	typedef ReturnType return_type;
 	typedef Arg1 arg1_type;
 	typedef Arg2 arg2_type;
@@ -180,13 +180,13 @@ struct HandlerTraits<ReturnType(*)(Arg1, Arg2, Arg3)>
 };
 
 template<typename ReturnType, typename Arg1, typename Arg2, typename Arg3>
-struct HandlerTraits<function_t<ReturnType(Arg1, Arg2, Arg3)> >
+struct HandlerTraits<m_function_t<ReturnType(Arg1, Arg2, Arg3)> >
 	//:public HandlerTraits<ReturnType(*)(Arg1, Arg2, Arg3)>
 {
 	HandlerTraits()
 	{
 	}
-	typedef function_t<ReturnType(Arg1, Arg2, Arg3)> type;
+	typedef m_function_t<ReturnType(Arg1, Arg2, Arg3)> type;
 	typedef ReturnType return_type;
 	typedef Arg1 arg1_type;
 	typedef Arg2 arg2_type;
@@ -206,10 +206,10 @@ struct HandlerTraits<ReturnType(*)(Arg1, Arg2, Arg3, Arg4)>
 };
 
 template<typename ReturnType, typename Arg1, typename Arg2, typename Arg3, typename Arg4>
-struct HandlerTraits<function_t<ReturnType(Arg1, Arg2, Arg3, Arg4)> >
+struct HandlerTraits<m_function_t<ReturnType(Arg1, Arg2, Arg3, Arg4)> >
 	//:public HandlerTraits<ReturnType(*)(Arg1, Arg2, Arg3, Arg4)>
 {
-	typedef function_t<ReturnType(Arg1, Arg2, Arg3, Arg4)> type;
+	typedef m_function_t<ReturnType(Arg1, Arg2, Arg3, Arg4)> type;
 	typedef ReturnType return_type;
 	typedef Arg1 arg1_type;
 	typedef Arg2 arg2_type;
@@ -231,10 +231,10 @@ struct HandlerTraits<ReturnType(*)(Arg1, Arg2, Arg3, Arg4, Arg5)>
 };
 
 template<typename ReturnType, typename Arg1, typename Arg2, typename Arg3, typename Arg4, typename Arg5>
-struct HandlerTraits<function_t<ReturnType(Arg1, Arg2, Arg3, Arg4, Arg5)> >
+struct HandlerTraits<m_function_t<ReturnType(Arg1, Arg2, Arg3, Arg4, Arg5)> >
 	//:public HandlerTraits<ReturnType(*)(Arg1, Arg2, Arg3, Arg4, Arg5)>
 {
-	typedef function_t<ReturnType(Arg1, Arg2, Arg3, Arg4, Arg5)> type;
+	typedef m_function_t<ReturnType(Arg1, Arg2, Arg3, Arg4, Arg5)> type;
 	typedef ReturnType return_type;
 	typedef Arg1 arg1_type;
 	typedef Arg2 arg2_type;

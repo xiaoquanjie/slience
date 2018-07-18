@@ -702,6 +702,51 @@
     <ClInclude Include="..\boost\throw_exception.hpp">
       <Filter>boost</Filter>
     </ClInclude>
+    <ClInclude Include="..\boost\bind.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\call_traits.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\foreach_fwd.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\get_pointer.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\is_placeholder.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\mem_fn.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\multi_index_container.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\multi_index_container_fwd.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\noncopyable.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\operators.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\ref.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\static_assert.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\type.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\version.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\boost\visit_each.hpp">
+      <Filter>boost</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="BUILD" />

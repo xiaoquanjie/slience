@@ -17,8 +17,8 @@ bool TcpConnector::Connect(const SocketLib::Tcp::EndPoint& ep, SocketLib::s_uint
 		this->_remoteep = this->_socket->RemoteEndPoint();
 		this->_localep = this->_socket->LocalEndPoint();
 		shard_ptr_t<TcpConnector> ref = this->shared_from_this();
-		function_t<void(SocketLib::s_uint32_t, SocketLib::SocketError)> handler =
-			bind_t(&TcpConnector::_ReadHandler, ref, placeholder_1, placeholder_2);
+		m_function_t<void(SocketLib::s_uint32_t, SocketLib::SocketError)> handler =
+			m_bind_t(&TcpConnector::_ReadHandler, ref, placeholder_1, placeholder_2);
 		this->_socket->AsyncRecvSome(handler, this->_reader.readbuf, M_SOCKET_READ_SIZE);
 		return true;
 	}
@@ -34,7 +34,7 @@ bool TcpConnector::Connect(const std::string& addr, SocketLib::s_uint16_t port, 
 }
 
 void TcpConnector::AsyncConnect(const SocketLib::Tcp::EndPoint& ep, SocketLib::SocketError& error) {
-	function_t<void(SocketLib::SocketError)> handler = bind_t(&TcpConnector::_ConnectHandler, this,
+	m_function_t<void(SocketLib::SocketError)> handler = m_bind_t(&TcpConnector::_ConnectHandler, this,
 		placeholder_1, this->shared_from_this());
 	this->_socket->AsyncConnect(handler, ep, error);
 	if (error)
@@ -59,8 +59,8 @@ void TcpConnector::_ConnectHandler(const SocketLib::SocketError& error, TcpConne
 		this->_flag = E_STATE_START;
 		shard_ptr_t<TcpConnector> ref = this->shared_from_this();
 		this->_netio.OnConnected(ref, error);
-		function_t<void(SocketLib::s_uint32_t, SocketLib::SocketError)> handler =
-			bind_t(&TcpConnector::_ReadHandler, ref, placeholder_1, placeholder_2);
+		m_function_t<void(SocketLib::s_uint32_t, SocketLib::SocketError)> handler =
+			m_bind_t(&TcpConnector::_ReadHandler, ref, placeholder_1, placeholder_2);
 		this->_socket->AsyncRecvSome(handler, this->_reader.readbuf, M_SOCKET_READ_SIZE);
 	}
 	catch (SocketLib::SocketError& err) {

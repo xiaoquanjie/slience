@@ -76,7 +76,7 @@ bool HttpBaseSocket<T, SocketType, HttpMsgType>::_CutMsgPack(SocketLib::s_byte_t
 template<typename T, typename SocketType, typename HttpMsgType>
 void HttpBaseSocket<T, SocketType, HttpMsgType>::_TryRecvData() {
 	SocketLib::SocketError error;
-	this->_socket->AsyncRecvSome(bind_t(&HttpBaseSocket::_ReadHandler, this->shared_from_this(), placeholder_1, placeholder_2)
+	this->_socket->AsyncRecvSome(m_bind_t(&HttpBaseSocket::_ReadHandler, this->shared_from_this(), placeholder_1, placeholder_2)
 		, _reader.readbuf, M_SOCKET_READ_SIZE, error);
 	if (error)
 		this->_PostClose();

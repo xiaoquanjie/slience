@@ -94,13 +94,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\boost\assert.hpp" />
+    <ClInclude Include="..\boost\bind.hpp" />
+    <ClInclude Include="..\boost\call_traits.hpp" />
     <ClInclude Include="..\boost\checked_delete.hpp" />
     <ClInclude Include="..\boost\config.hpp" />
     <ClInclude Include="..\boost\current_function.hpp" />
+    <ClInclude Include="..\boost\foreach_fwd.hpp" />
+    <ClInclude Include="..\boost\get_pointer.hpp" />
+    <ClInclude Include="..\boost\is_placeholder.hpp" />
+    <ClInclude Include="..\boost\mem_fn.hpp" />
+    <ClInclude Include="..\boost\multi_index_container.hpp" />
+    <ClInclude Include="..\boost\multi_index_container_fwd.hpp" />
+    <ClInclude Include="..\boost\noncopyable.hpp" />
+    <ClInclude Include="..\boost\operators.hpp" />
     <ClInclude Include="..\boost\predef.h" />
+    <ClInclude Include="..\boost\ref.hpp" />
     <ClInclude Include="..\boost\scoped_ptr.hpp" />
     <ClInclude Include="..\boost\shared_ptr.hpp" />
+    <ClInclude Include="..\boost\static_assert.hpp" />
     <ClInclude Include="..\boost\throw_exception.hpp" />
+    <ClInclude Include="..\boost\type.hpp" />
+    <ClInclude Include="..\boost\version.hpp" />
+    <ClInclude Include="..\boost\visit_each.hpp" />
     <ClInclude Include="..\google\protobuf\any.h" />
     <ClInclude Include="..\google\protobuf\any.pb.h" />
     <ClInclude Include="..\google\protobuf\any_test.pb.h" />

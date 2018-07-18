@@ -29,7 +29,7 @@ bool HttpConnector::Connect(const std::string& addr, SocketLib::s_uint16_t port)
 
 void HttpConnector::AsyncConnect(const SocketLib::Tcp::EndPoint& ep) {
 	try {
-		function_t<void(SocketLib::SocketError)> handler = bind_t(&HttpConnector::_ConnectHandler, this,
+		m_function_t<void(SocketLib::SocketError)> handler = m_bind_t(&HttpConnector::_ConnectHandler, this,
 			placeholder_1, this->shared_from_this());
 		this->_socket->AsyncConnect(handler, ep);
 	}
@@ -56,8 +56,8 @@ void HttpConnector::_ConnectHandler(const SocketLib::SocketError& error, HttpCon
 		this->_flag = E_STATE_START;
 		shard_ptr_t<HttpConnector> ref = this->shared_from_this();
 		this->_netio.OnConnected(ref, error);
-		function_t<void(SocketLib::s_uint32_t, SocketLib::SocketError)> handler =
-			bind_t(&HttpConnector::_ReadHandler, ref, placeholder_1, placeholder_2);
+		m_function_t<void(SocketLib::s_uint32_t, SocketLib::SocketError)> handler =
+			m_bind_t(&HttpConnector::_ReadHandler, ref, placeholder_1, placeholder_2);
 		this->_socket->AsyncRecvSome(handler, this->_reader.readbuf, M_SOCKET_READ_SIZE);
 	}
 	catch (SocketLib::SocketError& err) {

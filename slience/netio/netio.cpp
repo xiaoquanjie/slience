@@ -5,14 +5,14 @@ M_NETIO_NAMESPACE_BEGIN
 NetIo::NetIo()
 	:_backlog(20) {
 	_endian = SocketLib::detail::Util::LocalEndian();
-	function_t<void()> handler = bind_t(&NetIo::RunHandler, this);
+	m_function_t<void()> handler = m_bind_t(&NetIo::RunHandler, this);
 	_ioservice.SetRunCallback(handler);
 }
 
 NetIo::NetIo(SocketLib::s_uint32_t backlog)
 	: _backlog(backlog) {
 	_endian = SocketLib::detail::Util::LocalEndian();
-	function_t<void()> handler = bind_t(&NetIo::RunHandler, this);
+	m_function_t<void()> handler = m_bind_t(&NetIo::RunHandler, this);
 	_ioservice.SetRunCallback(handler);
 }
 
@@ -22,7 +22,7 @@ bool NetIo::ListenOne(const SocketLib::Tcp::EndPoint& ep) {
 	try {
 		TcpAcceptorPtr acceptor(new SocketLib::TcpAcceptor<SocketLib::IoService>(_ioservice, ep, _backlog));
 		TcpSocketPtr clisock(new TcpSocket(*this));
-		acceptor->AsyncAccept(bind_t(&NetIo::_AcceptHandler, this, placeholder_1, clisock, acceptor), clisock->GetSocket());
+		acceptor->AsyncAccept(m_bind_t(&NetIo::_AcceptHandler, this, placeholder_1, clisock, acceptor), clisock->GetSocket());
 	}
 	catch (SocketLib::SocketError& error) {
 		lasterror = error;
@@ -41,7 +41,7 @@ bool NetIo::ListenOneHttp(const SocketLib::Tcp::EndPoint& ep) {
 	try {
 		TcpAcceptorPtr acceptor(new SocketLib::TcpAcceptor<SocketLib::IoService>(_ioservice, ep, _backlog));
 		HttpSocketPtr clisock(new HttpSocket(*this));
-		acceptor->AsyncAccept(bind_t(&NetIo::_AcceptHttpHandler, this, placeholder_1, clisock, acceptor), clisock->GetSocket());
+		acceptor->AsyncAccept(m_bind_t(&NetIo::_AcceptHttpHandler, this, placeholder_1, clisock, acceptor), clisock->GetSocket());
 	}
 	catch (SocketLib::SocketError& error) {
 		lasterror = error;
@@ -154,7 +154,7 @@ void NetIo::_AcceptHandler(SocketLib::SocketError error, TcpSocketPtr& clisock, 
 		clisock->Init();
 	}
 	TcpSocketPtr newclisock(new TcpSocket(*this));
-	acceptor->AsyncAccept(bind_t(&NetIo::_AcceptHandler, this, placeholder_1, newclisock, acceptor), newclisock->GetSocket(), error);
+	acceptor->AsyncAccept(m_bind_t(&NetIo::_AcceptHandler, this, placeholder_1, newclisock, acceptor), newclisock->GetSocket(), error);
 	if (error)
 		lasterror = error;
 }
@@ -167,7 +167,7 @@ void NetIo::_AcceptHttpHandler(SocketLib::SocketError error, HttpSocketPtr& clis
 		clisock->Init();
 	}
 	HttpSocketPtr newclisock(new HttpSocket(*this));
-	acceptor->AsyncAccept(bind_t(&NetIo::_AcceptHttpHandler, this, placeholder_1, newclisock, acceptor), newclisock->GetSocket(), error);
+	acceptor->AsyncAccept(m_bind_t(&NetIo::_AcceptHttpHandler, this, placeholder_1, newclisock, acceptor), newclisock->GetSocket(), error);
 	if (error)
 		lasterror = error;
 }

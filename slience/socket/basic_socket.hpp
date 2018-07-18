@@ -35,9 +35,9 @@ public:
 	
 	M_SOCKET_DECL void Close(SocketError& error);
 
-	M_SOCKET_DECL void Close(function_t<void()> handler);
+	M_SOCKET_DECL void Close(m_function_t<void()> handler);
 
-	M_SOCKET_DECL void Close(function_t<void()> handler, SocketError& error);
+	M_SOCKET_DECL void Close(m_function_t<void()> handler, SocketError& error);
 
 	M_SOCKET_DECL void Shutdown(EShutdownType what);
 
@@ -96,14 +96,14 @@ M_SOCKET_DECL void BasicSocket<Protocol, SocketService>::Close(SocketError& erro
 }
 
 template <typename Protocol, typename SocketService>
-M_SOCKET_DECL void BasicSocket<Protocol, SocketService>::Close(function_t<void()> handler) {
+M_SOCKET_DECL void BasicSocket<Protocol, SocketService>::Close(m_function_t<void()> handler) {
 	SocketError error;
 	this->Close(handler, error);
 	M_THROW_DEFAULT_SOCKET_ERROR2(error);
 }
 
 template <typename Protocol, typename SocketService>
-M_SOCKET_DECL void BasicSocket<Protocol, SocketService>::Close(function_t<void()> handler, SocketError& error) {
+M_SOCKET_DECL void BasicSocket<Protocol, SocketService>::Close(m_function_t<void()> handler, SocketError& error) {
 	this->GetObjectService().Close(this->GetImpl(), handler, error);
 }
 

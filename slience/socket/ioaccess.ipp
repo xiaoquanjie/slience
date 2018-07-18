@@ -113,7 +113,7 @@ struct IoAccess {
 	}
 
 	static void Close(IIoService& service, SocketImpl& impl, 
-			function_t<void()> handler, SocketError& error)
+			m_function_t<void()> handler, SocketError& error)
 	{
 		MutexLock& mlock = M_Impl_Mutex(impl);
 		mlock.lock();

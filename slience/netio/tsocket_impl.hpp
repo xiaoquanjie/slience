@@ -84,7 +84,7 @@ void TcpBaseSocket<T, SocketType>::_Close() {
 		if (!_writer.writing) {
 			_flag = E_STATE_CLOSE;
 			SocketLib::SocketError error;
-			_socket->Close(bind_t(&TcpBaseSocket::_CloseHandler, this->shared_from_this()), error);
+			_socket->Close(m_bind_t(&TcpBaseSocket::_CloseHandler, this->shared_from_this()), error);
 		}
 	}
 }
@@ -244,7 +244,7 @@ bool TcpBaseSocket<T, SocketType>::_TrySendData() {
 
 	if (_writer.msgbuffer1.Length() > 0) {
 		SocketLib::SocketError error;
-		_socket->AsyncSendSome(bind_t(&TcpBaseSocket::_WriteHandler, this->shared_from_this(), placeholder_1, placeholder_2)
+		_socket->AsyncSendSome(m_bind_t(&TcpBaseSocket::_WriteHandler, this->shared_from_this(), placeholder_1, placeholder_2)
 			, _writer.msgbuffer1.Data(), _writer.msgbuffer1.Length(), error);
 		if (error) {
 			_Close();
@@ -359,7 +359,7 @@ bool TcpStreamSocket<T, SocketType>::_CutMsgPack(SocketLib::s_byte_t* buf, Socke
 template<typename T, typename SocketType>
 void TcpStreamSocket<T, SocketType>::_TryRecvData() {
 	SocketLib::SocketError error;
-	this->_socket->AsyncRecvSome(bind_t(&TcpStreamSocket::_ReadHandler, this->shared_from_this(), placeholder_1, placeholder_2)
+	this->_socket->AsyncRecvSome(m_bind_t(&TcpStreamSocket::_ReadHandler, this->shared_from_this(), placeholder_1, placeholder_2)
 		, _reader.readbuf, M_SOCKET_READ_SIZE, error);
 	if (error)
 		this->_PostClose();

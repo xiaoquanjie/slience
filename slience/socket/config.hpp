@@ -248,8 +248,12 @@
 #endif
 #define enable_shared_from_this_t M_TR1::enable_shared_from_this
 #define dynamic_pointer_cast_t M_TR1::dynamic_pointer_cast
-#define function_t	M_TR1::function
-#define bind_t M_TR1::bind
+#ifndef m_function_t
+#define m_function_t	M_TR1::function
+#endif
+#ifndef m_bind_t
+#define m_bind_t M_TR1::bind
+#endif
 #define placeholder_1 M_TR1::placeholders::_1
 #define placeholder_2 M_TR1::placeholders::_2
 #define placeholder_3 M_TR1::placeholders::_3

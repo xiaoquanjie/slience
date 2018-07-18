@@ -40,7 +40,7 @@ public:
 
 	M_SOCKET_DECL const ImplType& GetImpl()const;
 
-	M_SOCKET_DECL void DestroyHandler(function_t<void()> func);
+	M_SOCKET_DECL void DestroyHandler(m_function_t<void()> func);
 
 	M_SOCKET_DECL void SetData(void* data);
 
@@ -58,7 +58,7 @@ protected:
 protected:
 	IoObjectService	   _ioobjectservice;
 	ImplType		   _impl;
-	function_t<void()> _func;
+	m_function_t<void()> _func;
 	void*			   _data;
 };
 
@@ -101,7 +101,7 @@ M_SOCKET_DECL const typename SocketIoObject<IoObjectService>::ImplType& SocketIo
 }
 
 template<typename IoObjectService>
-M_SOCKET_DECL void SocketIoObject<IoObjectService>::DestroyHandler(function_t<void()> func)
+M_SOCKET_DECL void SocketIoObject<IoObjectService>::DestroyHandler(m_function_t<void()> func)
 {
 	_func = func;
 }
