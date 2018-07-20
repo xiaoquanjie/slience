@@ -6,7 +6,7 @@ cc_library(
 	   'src/svr_base.pb.cc'
     ],
 	deps = [
-		'#protobuf',
+		'//google:protobuf',
     ],
 	
     # link_all_symbols = True,

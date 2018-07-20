@@ -5,6 +5,7 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "commonlib", "commonlib\commonlib.vcxproj", "{BD516388-238C-4DE9-9E1E-AE28AC51A8ED}"
 	ProjectSection(ProjectDependencies) = postProject
+		{B6D43274-EE16-4488-BA38-863805CB3CCB} = {B6D43274-EE16-4488-BA38-863805CB3CCB}
 		{EE769691-8A57-41AD-904B-35606660162E} = {EE769691-8A57-41AD-904B-35606660162E}
 	EndProjectSection
 EndProject
@@ -28,8 +29,14 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf-lite", "protobuf-lite\protobuf-lite.vcxproj", "{DD7C4DC5-F9D8-4F34-81C7-B57899BF13AA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protobuf", "protobuf\protobuf.vcxproj", "{55B3A9ED-1AC1-40E3-909F-267712FD6080}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DD7C4DC5-F9D8-4F34-81C7-B57899BF13AA} = {DD7C4DC5-F9D8-4F34-81C7-B57899BF13AA}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "protoc", "protoc\protoc.vcxproj", "{F4CFD3EC-DC11-43B7-97B5-D977DEBE0ED8}"
+	ProjectSection(ProjectDependencies) = postProject
+		{55B3A9ED-1AC1-40E3-909F-267712FD6080} = {55B3A9ED-1AC1-40E3-909F-267712FD6080}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

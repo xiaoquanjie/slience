@@ -201,4 +201,7 @@
     <ClInclude Include="..\google\protobuf\compiler\python\python_generator.h" />
     <ClInclude Include="..\google\protobuf\compiler\ruby\ruby_generator.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\google\BUILD" />
+  </ItemGroup>
 </Project>

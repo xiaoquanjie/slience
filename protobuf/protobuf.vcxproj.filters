@@ -135,4 +135,7 @@
     <ClInclude Include="..\google\protobuf\wire_format.h" />
     <ClInclude Include="..\google\protobuf\wrappers.pb.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\google\BUILD" />
+  </ItemGroup>
 </Project>
