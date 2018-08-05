@@ -14,7 +14,7 @@
  
 #define M_MYSQL_CATCH_EXCEPTION \
 catch (sql::SQLException& e){\
-	LogError("ERROR, sql exception : what=" << e.what() << "err_code=" << e.getErrorCode() << "sql_state="<<e.getSQLState());\
+	LogError("ERROR, sql exception : what=" << e.what() << " err_code=" << e.getErrorCode() << " sql_state="<<e.getSQLState());\
 }\
 catch (std::runtime_error &e){\
 	LogError("ERROR, runtime_error in " << __FUNCTION__ << ", what=" << e.what());\
@@ -57,14 +57,15 @@ public:
 	}
 
 	static SqlConnectionPtr GetConnect(const std::string& hostName, const std::string& userName,
-		const std::string& password,unsigned short port=0) {
+		const std::string& password,unsigned short port = 3306) {
 		sql::ConnectOptionsMap options;
 		options["OPT_RECONNECT"] = true;
 		options["hostName"] = hostName;
 		options["userName"] = userName;
-		options["password"] = password;
-		if (port != 0)
-			options["port"] = port;
+		options["port"] = port;
+		if (password.size()) {
+			options["password"] = password;
+		}
 		
 		return GetConnect(options);
 	}
@@ -75,11 +76,12 @@ public:
 		options["OPT_RECONNECT"] = true;
 		options["hostName"] = hostName;
 		options["userName"] = userName;
-		options["password"] = password;
+		options["port"] = port;
 		options["schema"] = db;
-		if (port != 0)
-			options["port"] = port;
-
+		if (password.size()) {
+			options["password"] = password;
+		}
+		
 		return GetConnect(options);
 	}
 
@@ -90,11 +92,12 @@ public:
 		options["OPT_RECONNECT"] = true;
 		options["hostName"] = hostName;
 		options["userName"] = userName;
-		options["password"] = password;
 		options["schema"] = db;
 		options["characterSetResults"] = characterset;
-		if (port != 0)
-			options["port"] = port;
+		options["port"] = port;
+		if (password.size()) {
+			options["password"] = password;
+		}
 
 		return GetConnect(options);
 	}
